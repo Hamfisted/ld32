@@ -55,14 +55,6 @@ class CollisionLogic
     bullet.kill();
   }
 
-  public static function WallPlayer(wall:FlxTilemap, player:Player)
-  {
-    player.setCanJump(player.isTouching(flixel.FlxObject.FLOOR) ||
-                      FlxMath.isDistanceToPointWithin(player, wall.getMidpoint(), 5.0));
-    // TODO: fix the distance check, cause it doesn't work
-    //FlxG.log.add('distance: ${FlxMath.distanceToPoint(player, wall.getMidpoint())}');
-  }
-
   public static function BulletPatch(bullet:FlxBullet, child:PatchChildSprite)
   {
     bullet.kill();
