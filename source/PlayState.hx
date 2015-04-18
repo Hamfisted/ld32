@@ -24,6 +24,7 @@ class PlayState extends FlxState
   private var _grpSpikes:FlxTypedGroup<Spike>;
   private var _grpBullets:FlxTypedGroup<FlxBullet>;
   private var _grpSeedPickups:FlxTypedGroup<SeedPickup>;
+  private var _grpBeavers:FlxTypedGroup<Beaver>;
 
   /**
    * Function that is called up when to state is created to set it up.
@@ -38,6 +39,8 @@ class PlayState extends FlxState
     _levelEnd = new LevelEnd();
     _player = new Player();
     _grpBullets = _player.seedShooter.group;
+
+    _grpBeavers = new FlxTypedGroup<Beaver>();
 
     loadLevel(Reg.level);
 
@@ -67,10 +70,13 @@ class PlayState extends FlxState
       http://api.haxeflixel.com/flixel/addons/editors/ogmo/FlxOgmoLoader.html
     */
     FlxG.collide(_mWalls, _player);
-    FlxG.collide(_mWalls, _grpBullets, function(W:FlxTilemap, B:FlxBullet) { B.kill(); });
+    FlxG.collide(_mWalls, _grpBullets, function(W:FlxTilemap, B:FlxBullet) { B.kill(); } );
+    FlxG.collide(_mWalls, _grpBeavers, function(W:FlxTilemap, B:Beaver) { B.touchWall(W); } );
     FlxG.collide(_player, _grpSpikes, _player.touchSpike);
     FlxG.overlap(_player, _grpSeedPickups, _player.touchSeedPickup);
     FlxG.collide(_player, _levelEnd, winLevel);
+    FlxG.collide(_player, _grpBeavers, function(W:Player, B:Beaver) { W.kill(); } );
+    FlxG.collide(_grpBullets, _grpBeavers, function(Bullet:FlxBullet, B:Beaver) { B.kill(); } );
 
     _hud.updateHUD(_player);
 
@@ -114,6 +120,7 @@ class PlayState extends FlxState
     add(_levelEnd);
     add(_player);
     add(_grpBullets);
+    add(_grpBeavers);
 
     FlxG.camera.follow(_player, FlxCamera.STYLE_PLATFORMER);
   }
@@ -127,12 +134,15 @@ class PlayState extends FlxState
     remove(_player);
     remove(_grpBullets);
     remove(_levelEnd);
+    remove(_grpBeavers);
     // Destroy objects as necessary
     FlxDestroyUtil.destroy(_mWalls);
     _grpSpikes.callAll("destroy");
     _grpSpikes.clear();
     _grpSeedPickups.callAll("destroy");
     _grpSeedPickups.clear();
+    _grpBeavers.callAll("destroy");
+    _grpBeavers.clear();
   }
 
   private function placeEntities(entityName:String, entityData:Xml):Void
@@ -154,6 +164,10 @@ class PlayState extends FlxState
     else if (entityName == "seed_pickup")
     {
       _grpSeedPickups.add(new SeedPickup(x, y));
+    }
+    else if (entityName == "beaver")
+    {
+      _grpBeavers.add(new Beaver(x, y));
     }
   }
 
