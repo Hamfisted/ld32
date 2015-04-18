@@ -5,6 +5,10 @@ import flixel.FlxSprite;
 import flixel.FlxObject;
 import flixel.util.FlxPoint;
 import flixel.util.FlxColor;
+import flixel.util.FlxRect;
+import flixel.group.FlxTypedGroup;
+import flixel.addons.weapon.FlxWeapon;
+import flixel.addons.weapon.FlxBullet;
 
 class Player extends FlxSprite
 {
@@ -15,6 +19,8 @@ class Player extends FlxSprite
 
   var GRAVITY:Int = 800;
   var JUMP_SPEED:Int = -400;
+
+  public var seedShooter:FlxWeapon;
 
   public var speed:Int = 200;
 
@@ -43,6 +49,15 @@ class Player extends FlxSprite
     drag.x = 2400;
 
     acceleration.y = GRAVITY;
+
+    // Just makes 20 bullets for now
+    seedShooter = new FlxWeapon("seed_shooter", this);
+    seedShooter.makePixelBullet(20, 4, 4, FlxColor.YELLOW);
+    seedShooter.setBulletSpeed(400);
+    seedShooter.setFireRate(200);
+    seedShooter.setBulletOffset(12, 12);
+    seedShooter.setBulletBounds(new FlxRect(0, 0, 2400, 2400));
+    seedShooter.setBulletLifeSpan(4);
   }
 
   override public function update():Void
@@ -86,6 +101,7 @@ class Player extends FlxSprite
     var _left:Bool = FlxG.keys.anyPressed(["LEFT", "A"]);
     var _right:Bool = FlxG.keys.anyPressed(["RIGHT", "D"]);
     var _down:Bool = FlxG.keys.anyPressed(["DOWN", "S"]);
+    var _pressed:Bool = FlxG.mouse.pressed;
 
     if (_up && isTouching(flixel.FlxObject.FLOOR))
     {
@@ -104,6 +120,11 @@ class Player extends FlxSprite
     }
 
     lastVelocity.copyFrom(velocity);
+
+    if (_pressed)
+    {
+      seedShooter.fireAtMouse();
+    }
 
     if (_left || _right)
     {

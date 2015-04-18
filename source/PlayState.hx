@@ -9,6 +9,7 @@ import flixel.group.FlxTypedGroup;
 import flixel.tile.FlxTilemap;
 import flixel.addons.editors.ogmo.FlxOgmoLoader;
 import flixel.system.debug.LogStyle;
+import flixel.addons.weapon.FlxBullet;
 
 /**
  * A FlxState which can be used for the actual gameplay.
@@ -21,20 +22,20 @@ class PlayState extends FlxState
   private var _mWalls:FlxTilemap;
   private var _levelEnd:LevelEnd;
   private var _grpSpikes:FlxTypedGroup<Spike>;
+  private var _grpBullets:FlxTypedGroup<FlxBullet>;
 
   /**
    * Function that is called up when to state is created to set it up.
    */
   override public function create():Void
   {
-    FlxG.mouse.visible = false;
-
     FlxG.console.addCommand(["map", "level", "changelevel"], loadLevel, "loadLevel", 1);
     FlxG.console.addCommand(["winlevel"], winLevel, "winLevel");
 
     _grpSpikes = new FlxTypedGroup<Spike>();
     _levelEnd = new LevelEnd();
     _player = new Player();
+    _grpBullets = _player.seedShooter.group;
 
     loadLevel(Reg.level);
 
@@ -64,6 +65,7 @@ class PlayState extends FlxState
       http://api.haxeflixel.com/flixel/addons/editors/ogmo/FlxOgmoLoader.html
     */
     FlxG.collide(_mWalls, _player);
+    FlxG.collide(_mWalls, _grpBullets, function(W:FlxTilemap, B:FlxBullet) { B.kill(); });
     FlxG.collide(_player, _grpSpikes, _player.touchSpike);
     FlxG.collide(_player, _levelEnd, winLevel);
 
@@ -105,6 +107,7 @@ class PlayState extends FlxState
     add(_grpSpikes);
     add(_levelEnd);
     add(_player);
+    add(_grpBullets);
 
     FlxG.camera.follow(_player, FlxCamera.STYLE_PLATFORMER);
   }
@@ -115,6 +118,7 @@ class PlayState extends FlxState
     remove(_mWalls);
     remove(_grpSpikes);
     remove(_player);
+    remove(_grpBullets);
     remove(_levelEnd);
     // Destroy objects as necessary
     FlxDestroyUtil.destroy(_mWalls);
