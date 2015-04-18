@@ -33,18 +33,15 @@ class Beaver extends FlxSprite
     super.update();
   }
 
-  public function touchWall(wall:FlxTilemap):Void
+  public function changeDirection()
   {
-    if (isTouching(FlxObject.WALL))
+    if (facing == FlxObject.RIGHT)
     {
-      if (facing == FlxObject.RIGHT)
-      {
-        moveLeft();
-      }
-      else
-      {
-        moveRight();
-      }
+      moveLeft();
+    }
+    else
+    {
+      moveRight();
     }
   }
 

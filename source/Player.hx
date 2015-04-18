@@ -106,7 +106,7 @@ class Player extends FlxSprite
 
     if (_up && isTouching(flixel.FlxObject.FLOOR))
     {
-      this.velocity.y = JUMP_SPEED;
+      jumpUp();
     }
 
     if (_left)
@@ -158,14 +158,13 @@ class Player extends FlxSprite
     // }
   }
 
-  public function touchSpike(P:Player, S:Spike):Void
+  public function giveSeeds(count:Int)
   {
-    kill();
+    seedCount += count;
   }
 
-  public function touchSeedPickup(P:Player, S:SeedPickup):Void
+  public function jumpUp():Void
   {
-    S.kill();
-    seedCount++;
+    this.velocity.y = JUMP_SPEED;
   }
 }

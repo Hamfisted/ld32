@@ -70,18 +70,14 @@ class PlayState extends FlxState
       http://api.haxeflixel.com/flixel/addons/editors/ogmo/FlxOgmoLoader.html
     */
     FlxG.collide(_mWalls, _player);
-    FlxG.collide(_mWalls, _grpBullets, function(W:FlxTilemap, B:FlxBullet) { B.kill(); } );
-    FlxG.collide(_mWalls, _grpBeavers, function(W:FlxTilemap, B:Beaver) { B.touchWall(W); } );
-    FlxG.collide(_player, _grpSpikes, _player.touchSpike);
-    FlxG.overlap(_player, _grpSeedPickups, _player.touchSeedPickup);
+    FlxG.collide(_mWalls, _grpBullets, CollisionLogic.WallBullet);
+    FlxG.collide(_mWalls, _grpBeavers, CollisionLogic.WallBeaver);
+    FlxG.collide(_player, _grpSpikes, CollisionLogic.PlayerSpike);
+    FlxG.overlap(_player, _grpSeedPickups, CollisionLogic.PlayerSeed);
     FlxG.collide(_player, _levelEnd, winLevel);
-    FlxG.collide(_player, _grpBeavers, function(W:Player, B:Beaver) { W.kill(); } );
-    FlxG.overlap(_grpBullets, _grpBeavers,
-      function(bullet:FlxBullet, beaver:Beaver)
-      {
-        bullet.kill();
-        beaver.kill();
-      });
+
+    FlxG.collide(_player, _grpBeavers, CollisionLogic.PlayerBeaver);
+    FlxG.overlap(_grpBullets, _grpBeavers, CollisionLogic.BulletBeaver);
 
     _hud.updateHUD(_player);
 
