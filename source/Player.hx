@@ -18,11 +18,11 @@ class Player extends FlxSprite
   var lastVelocity:FlxPoint;
 
   var GRAVITY:Int = 800;
-  var JUMP_SPEED:Int = -400;
+  var JUMP_SPEED:Int = -240;
 
   public var seedShooter:FlxWeapon;
 
-  public var speed:Int = 200;
+  public var speed:Int = 140;
 
   public var seedCount:Int = 0;
 
