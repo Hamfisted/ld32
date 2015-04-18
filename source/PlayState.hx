@@ -76,7 +76,12 @@ class PlayState extends FlxState
     FlxG.overlap(_player, _grpSeedPickups, _player.touchSeedPickup);
     FlxG.collide(_player, _levelEnd, winLevel);
     FlxG.collide(_player, _grpBeavers, function(W:Player, B:Beaver) { W.kill(); } );
-    FlxG.collide(_grpBullets, _grpBeavers, function(Bullet:FlxBullet, B:Beaver) { B.kill(); } );
+    FlxG.overlap(_grpBullets, _grpBeavers,
+      function(bullet:FlxBullet, beaver:Beaver)
+      {
+        bullet.kill();
+        beaver.kill();
+      });
 
     _hud.updateHUD(_player);
 
