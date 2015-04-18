@@ -116,6 +116,7 @@ class PlayState extends FlxState
 
     _map.loadEntities(placeEntities, "entities");
 
+    // Order matters
     add(_grpSpikes);
     add(_grpSeedPickups);
     add(_levelEnd);
@@ -128,22 +129,21 @@ class PlayState extends FlxState
 
   private function cleanupStage():Void
   {
+    var spriteGroups:Array<Dynamic> = [_grpSpikes, _grpSeedPickups, _grpBeavers];
     // Remove objects from state
     remove(_mWalls);
-    remove(_grpSpikes);
-    remove(_grpSeedPickups);
     remove(_player);
+    // Bullets are managed by FlxWeapon, don't destroy them here.
     remove(_grpBullets);
     remove(_levelEnd);
-    remove(_grpBeavers);
-    // Destroy objects as necessary
+    // Remove groups & destroy nested objects as necessary
     FlxDestroyUtil.destroy(_mWalls);
-    _grpSpikes.callAll("destroy");
-    _grpSpikes.clear();
-    _grpSeedPickups.callAll("destroy");
-    _grpSeedPickups.clear();
-    _grpBeavers.callAll("destroy");
-    _grpBeavers.clear();
+    for (group in spriteGroups)
+    {
+      remove(group);
+      group.callAll("destroy");
+      group.clear();
+    }
   }
 
   private function placeEntities(entityName:String, entityData:Xml):Void
