@@ -62,4 +62,10 @@ class CollisionLogic
     // TODO: fix the distance check, cause it doesn't work
     //FlxG.log.add('distance: ${FlxMath.distanceToPoint(player, wall.getMidpoint())}');
   }
+
+  public static function BulletPatch(bullet:FlxBullet, child:PatchChildSprite)
+  {
+    bullet.kill();
+    child.parent.touchSeed(bullet);
+  }
 }

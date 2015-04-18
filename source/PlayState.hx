@@ -25,6 +25,7 @@ class PlayState extends FlxState
   private var _grpBullets:FlxTypedGroup<FlxBullet>;
   private var _grpSeedPickups:FlxTypedGroup<SeedPickup>;
   private var _grpBeavers:FlxTypedGroup<Beaver>;
+  private var _grpPatches:FlxTypedGroup<Patch>;
 
   /**
    * Function that is called up when to state is created to set it up.
@@ -41,6 +42,7 @@ class PlayState extends FlxState
     _grpBullets = _player.seedShooter.group;
 
     _grpBeavers = new FlxTypedGroup<Beaver>();
+    _grpPatches = new FlxTypedGroup<Patch>();
 
     loadLevel(Reg.level);
 
@@ -78,6 +80,11 @@ class PlayState extends FlxState
 
     FlxG.collide(_player, _grpBeavers, CollisionLogic.PlayerBeaver);
     FlxG.overlap(_grpBullets, _grpBeavers, CollisionLogic.BulletBeaver);
+
+    // Patches
+    FlxG.collide(_player, _grpPatches);
+    FlxG.collide(_grpBeavers, _grpPatches);
+    FlxG.overlap(_grpBullets, _grpPatches, CollisionLogic.BulletPatch);
 
     _hud.updateHUD(_player);
 
@@ -121,15 +128,16 @@ class PlayState extends FlxState
     add(_grpSeedPickups);
     add(_levelEnd);
     add(_player);
-    add(_grpBullets);
     add(_grpBeavers);
+    add(_grpPatches);
+    add(_grpBullets);
 
     FlxG.camera.follow(_player, FlxCamera.STYLE_PLATFORMER);
   }
 
   private function cleanupStage():Void
   {
-    var spriteGroups:Array<Dynamic> = [_grpSpikes, _grpSeedPickups, _grpBeavers];
+    var spriteGroups:Array<Dynamic> = [_grpSpikes, _grpSeedPickups, _grpBeavers, _grpPatches];
     // Remove objects from state
     remove(_mWalls);
     remove(_player);
@@ -169,6 +177,10 @@ class PlayState extends FlxState
     else if (entityName == "beaver")
     {
       _grpBeavers.add(new Beaver(x, y));
+    }
+    else if (entityName == "grow_patch")
+    {
+      _grpPatches.add(new GrowPatch(x, y, entityData.get("direction")));
     }
   }
 
