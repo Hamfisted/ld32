@@ -27,7 +27,24 @@ class GrowPatch extends Patch
 
   override public function touchSeed(seed:FlxBullet):Void
   {
-    trace("activated!");
+    grow();
+  }
+
+  function makeTreeSegment():PatchChildSprite
+  {
+    var segment = new PatchChildSprite(x, y, this);
+    segment.makeGraphic(16, 32, FlxColor.BROWN);
+    segment.solid = true;
+    segment.immovable = true;
+    return segment;
+  }
+
+  function grow():Void
+  {
+    var segment:PatchChildSprite = makeTreeSegment();
+    // TODO: do directional stuff
+    segment.y = this.members[this.length-1].y - 32;
+    this.add(segment);
   }
 
 }

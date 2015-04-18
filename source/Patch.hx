@@ -14,12 +14,15 @@ class Patch extends FlxTypedGroup<PatchChildSprite>
 {
   public var ptype:String;
 
+  var x:Float;
+  var y:Float;
   var _patchSprite:PatchChildSprite;
 
   public function new(X:Float=0, Y:Float=0, PType:String)
   {
-    // super(X, Y);
     super();
+    x = X;
+    y = Y;
 
     ptype = PType;
 
