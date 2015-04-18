@@ -34,17 +34,15 @@ class Player extends FlxSprite
 
     lastVelocity = new FlxPoint(0, 0);
 
-    loadGraphic(AssetPaths.catfighter__png, true, 64, 64);
+    loadGraphic(AssetPaths.sapling_run__png, true, 32, 32);
     setFacingFlip(FlxObject.RIGHT, false, false);
     setFacingFlip(FlxObject.LEFT, true, false);
 
-    setSize(17, 32);
-    offset.set(23, 23);
+    setSize(24, 28);
+    offset.set(4, 4);
 
-    var r:Int = 16;
-    animation.add("walk", [r+0, r+1, r+2, r+3, r+4, r+5, r+6, r+7], 24, true);
+    animation.add("run", [0, 1, 2, 3, 4], 12, true);
 
-    // makeGraphic(16, 16, FlxColor.BLUE);
     solid = true;
     collisonXDrag = false;
 
@@ -133,10 +131,11 @@ class Player extends FlxSprite
 
     if (_left || _right)
     {
-      animation.play("walk");
+      animation.play("run");
     }
     else
     {
+      animation.frameIndex = 0;
       animation.pause();
     }
   }
