@@ -52,7 +52,6 @@ class CollisionLogic
 
   public static function WallBullet(wall:FlxTilemap, bullet:FlxBullet)
   {
-    trace("bullet wall?");
     bullet.kill();
   }
 
@@ -64,10 +63,9 @@ class CollisionLogic
     //FlxG.log.add('distance: ${FlxMath.distanceToPoint(player, wall.getMidpoint())}');
   }
 
-  public static function BulletPatch(bullet:FlxBullet, patch:Patch)
+  public static function BulletPatch(bullet:FlxBullet, child:PatchChildSprite)
   {
-    trace("bulletpatch");
     bullet.kill();
-    patch.touchSeed(bullet);
+    child.parent.touchSeed(bullet);
   }
 }

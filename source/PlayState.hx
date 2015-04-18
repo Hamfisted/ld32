@@ -4,7 +4,6 @@ import flixel.FlxG;
 import flixel.FlxCamera;
 import flixel.FlxState;
 import flixel.FlxObject;
-import flixel.group.FlxGroup;
 import flixel.util.FlxDestroyUtil;
 import flixel.group.FlxTypedGroup;
 import flixel.tile.FlxTilemap;
@@ -82,9 +81,9 @@ class PlayState extends FlxState
     FlxG.collide(_player, _grpBeavers, CollisionLogic.PlayerBeaver);
     FlxG.overlap(_grpBullets, _grpBeavers, CollisionLogic.BulletBeaver);
 
-    // fixme
-    // FlxG.collide(_player, _grpPatches);
-    // FlxG.collide(_grpBeavers, _grpPatches);
+    // Patches
+    FlxG.collide(_player, _grpPatches);
+    FlxG.collide(_grpBeavers, _grpPatches);
     FlxG.overlap(_grpBullets, _grpPatches, CollisionLogic.BulletPatch);
 
     _hud.updateHUD(_player);

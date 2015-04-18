@@ -10,11 +10,11 @@ import flixel.util.FlxPoint;
 import flixel.util.FlxColor;
 import flixel.addons.weapon.FlxBullet;
 
-class Patch extends FlxTypedGroup<FlxSprite>
+class Patch extends FlxTypedGroup<PatchChildSprite>
 {
   public var ptype:String;
 
-  var _patchSprite:FlxSprite;
+  var _patchSprite:PatchChildSprite;
 
   public function new(X:Float=0, Y:Float=0, PType:String)
   {
@@ -23,9 +23,9 @@ class Patch extends FlxTypedGroup<FlxSprite>
 
     ptype = PType;
 
-    _patchSprite = new FlxSprite(X, Y);
-    // _patchSprite.solid = true;
-    // _patchSprite.immovable = true;
+    _patchSprite = new PatchChildSprite(X, Y, this);
+    _patchSprite.solid = true;
+    _patchSprite.immovable = true;
 
     this.add(_patchSprite);
   }

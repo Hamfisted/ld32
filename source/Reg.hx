@@ -19,7 +19,7 @@ class Reg
    * Generic level variable that can be used for cross-state stuff.
    * Example usage: Storing the current level number.
    */
-  public static var level:Int = 2;
+  public static var level:Int = 0;
   /**
    * Generic scores Array that can be used for cross-state stuff.
    * Example usage: Storing the scores for level.
