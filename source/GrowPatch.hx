@@ -10,11 +10,12 @@ import flixel.addons.weapon.FlxBullet;
 
 class GrowPatch extends Patch
 {
-  public var direction:String = "up";
+  public var direction:String;
 
-  public function new(X:Float=0, Y:Float=0, Direction:String)
+  public function new(X:Float=0, Y:Float=0, Direction:String="up")
   {
     super(X, Y, "grow");
+    direction = Direction;
 
     // todo: add real sprite
     _patchSprite.makeGraphic(16, 16, FlxColor.BROWN);
@@ -33,17 +34,51 @@ class GrowPatch extends Patch
   function makeTreeSegment():PatchChildSprite
   {
     var segment = new PatchChildSprite(x, y, this);
-    segment.makeGraphic(16, 32, FlxColor.BROWN);
+    if (direction == "up" || direction == "down")
+    {
+      segment.makeGraphic(16, 32, FlxColor.BROWN);
+    }
+    else
+    {
+      segment.makeGraphic(32, 16, FlxColor.BROWN);
+    }
     segment.solid = true;
     segment.immovable = true;
+    segment.updateHitbox();
     return segment;
+  }
+
+  function activated():Bool
+  {
+    return this.length > 1;
   }
 
   function grow():Void
   {
+    var root:PatchChildSprite = _patchSprite;
+    var lastSegment:PatchChildSprite = this.members[this.length-1];
     var segment:PatchChildSprite = makeTreeSegment();
-    // TODO: do directional stuff
-    segment.y = this.members[this.length-1].y - 32;
+    segment.x = lastSegment.x;
+    segment.y = lastSegment.y;
+
+    if (direction == "up")
+    {
+      segment.y -= 32;
+    }
+    else if (direction == "down")
+    {
+      segment.flipX = true;
+      segment.y += (root == lastSegment)? 16 : 32;
+    }
+    else if (direction == "right")
+    {
+      segment.x += (root == lastSegment)? 16 : 32;
+    }
+    else if (direction == "left")
+    {
+      segment.x -= 32;
+    }
+
     this.add(segment);
   }
 
