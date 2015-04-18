@@ -52,6 +52,7 @@ class CollisionLogic
 
   public static function WallBullet(wall:FlxTilemap, bullet:FlxBullet)
   {
+    trace("bullet wall?");
     bullet.kill();
   }
 
@@ -61,5 +62,12 @@ class CollisionLogic
                       FlxMath.isDistanceToPointWithin(player, wall.getMidpoint(), 5.0));
     // TODO: fix the distance check, cause it doesn't work
     //FlxG.log.add('distance: ${FlxMath.distanceToPoint(player, wall.getMidpoint())}');
+  }
+
+  public static function BulletPatch(bullet:FlxBullet, patch:Patch)
+  {
+    trace("bulletpatch");
+    bullet.kill();
+    patch.touchSeed(bullet);
   }
 }
