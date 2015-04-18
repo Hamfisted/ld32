@@ -23,6 +23,7 @@ class PlayState extends FlxState
   private var _levelEnd:LevelEnd;
   private var _grpSpikes:FlxTypedGroup<Spike>;
   private var _grpBullets:FlxTypedGroup<FlxBullet>;
+  private var _grpSeedPickups:FlxTypedGroup<SeedPickup>;
 
   /**
    * Function that is called up when to state is created to set it up.
@@ -33,6 +34,7 @@ class PlayState extends FlxState
     FlxG.console.addCommand(["winlevel"], winLevel, "winLevel");
 
     _grpSpikes = new FlxTypedGroup<Spike>();
+    _grpSeedPickups = new FlxTypedGroup<SeedPickup>();
     _levelEnd = new LevelEnd();
     _player = new Player();
     _grpBullets = _player.seedShooter.group;
@@ -67,7 +69,10 @@ class PlayState extends FlxState
     FlxG.collide(_mWalls, _player);
     FlxG.collide(_mWalls, _grpBullets, function(W:FlxTilemap, B:FlxBullet) { B.kill(); });
     FlxG.collide(_player, _grpSpikes, _player.touchSpike);
+    FlxG.overlap(_player, _grpSeedPickups, _player.touchSeedPickup);
     FlxG.collide(_player, _levelEnd, winLevel);
+
+    _hud.updateHUD(_player);
 
     if (!_player.alive) {
       loadLevel(Reg.level);
@@ -105,6 +110,7 @@ class PlayState extends FlxState
     _map.loadEntities(placeEntities, "entities");
 
     add(_grpSpikes);
+    add(_grpSeedPickups);
     add(_levelEnd);
     add(_player);
     add(_grpBullets);
@@ -117,6 +123,7 @@ class PlayState extends FlxState
     // Remove objects from state
     remove(_mWalls);
     remove(_grpSpikes);
+    remove(_grpSeedPickups);
     remove(_player);
     remove(_grpBullets);
     remove(_levelEnd);
@@ -124,6 +131,8 @@ class PlayState extends FlxState
     FlxDestroyUtil.destroy(_mWalls);
     _grpSpikes.callAll("destroy");
     _grpSpikes.clear();
+    _grpSeedPickups.callAll("destroy");
+    _grpSeedPickups.clear();
   }
 
   private function placeEntities(entityName:String, entityData:Xml):Void
@@ -141,6 +150,10 @@ class PlayState extends FlxState
     else if (entityName == "level_end")
     {
       _levelEnd.reset(x, y);
+    }
+    else if (entityName == "seed_pickup")
+    {
+      _grpSeedPickups.add(new SeedPickup(x, y));
     }
   }
 

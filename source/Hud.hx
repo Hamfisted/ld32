@@ -14,7 +14,7 @@ class HUD extends FlxTypedGroup<FlxSprite>
 {
 
   private var _sprBack:FlxSprite;
-  private var _txtScore:FlxText;
+  private var _txtSeedCount:FlxText;
 
   public function new()
   {
@@ -22,12 +22,12 @@ class HUD extends FlxTypedGroup<FlxSprite>
     _sprBack = new FlxSprite().makeGraphic(FlxG.width, 20, FlxColor.BLACK);
     _sprBack.drawRect(0, 19, FlxG.width, 1, FlxColor.WHITE);
 
-    _txtScore = new FlxText(0, 2, 0, "0", 8);
-    _txtScore.setBorderStyle(FlxText.BORDER_SHADOW, FlxColor.GRAY, 1, 1);
-    _txtScore.alignment = "right";
+    _txtSeedCount = new FlxText(0, 2, 0, "0", 8);
+    _txtSeedCount.setBorderStyle(FlxText.BORDER_SHADOW, FlxColor.GRAY, 1, 1);
+    _txtSeedCount.x = FlxG.width - 50;
 
     add(_sprBack);
-    add(_txtScore);
+    add(_txtSeedCount);
 
     forEach(function(spr:FlxSprite) {
       spr.scrollFactor.set();
@@ -36,8 +36,11 @@ class HUD extends FlxTypedGroup<FlxSprite>
 
   public override function update():Void
   {
-    _txtScore.text = Std.string(Reg.score);
-    _txtScore.x = FlxG.width - 30;
     super.update();
+  }
+
+  public function updateHUD(P:Player):Void
+  {
+    _txtSeedCount.text = "Seeds: " + Std.string(P.seedCount);
   }
 }

@@ -24,6 +24,8 @@ class Player extends FlxSprite
 
   public var speed:Int = 200;
 
+  public var seedCount:Int = 0;
+
   public function new(X:Float=0, Y:Float=0)
   {
     super(X, Y);
@@ -52,7 +54,7 @@ class Player extends FlxSprite
 
     // Just makes 20 bullets for now
     seedShooter = new FlxWeapon("seed_shooter", this);
-    seedShooter.makePixelBullet(20, 4, 4, FlxColor.YELLOW);
+    seedShooter.makePixelBullet(20, 4, 4, FlxColor.LIME);
     seedShooter.setBulletSpeed(400);
     seedShooter.setFireRate(200);
     seedShooter.setBulletOffset(12, 12);
@@ -87,6 +89,7 @@ class Player extends FlxSprite
   {
     super.reset(X, Y);
     velocity.set(0, 0);
+    seedCount = 0;
     lastVelocity.copyFrom(velocity);
   }
 
@@ -121,9 +124,11 @@ class Player extends FlxSprite
 
     lastVelocity.copyFrom(velocity);
 
-    if (_pressed)
+    if (seedCount > 0 && _pressed)
     {
-      seedShooter.fireAtMouse();
+      if (seedShooter.fireAtMouse()) {
+        seedCount--;
+      }
     }
 
     if (_left || _right)
@@ -157,5 +162,11 @@ class Player extends FlxSprite
   public function touchSpike(P:Player, S:Spike):Void
   {
     kill();
+  }
+
+  public function touchSeedPickup(P:Player, S:SeedPickup):Void
+  {
+    S.kill();
+    seedCount++;
   }
 }
