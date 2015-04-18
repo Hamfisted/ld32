@@ -26,6 +26,8 @@ class Player extends FlxSprite
 
   public var seedCount:Int = 0;
 
+  public var _canJump:Bool = false;
+
   public function new(X:Float=0, Y:Float=0)
   {
     super(X, Y);
@@ -98,13 +100,13 @@ class Player extends FlxSprite
 
   private function movement():Void
   {
-    var _up:Bool = FlxG.keys.anyPressed(["UP", "W", "SPACE"]);
+    var _up:Bool = FlxG.keys.anyJustPressed(["UP", "W", "SPACE"]);
     var _left:Bool = FlxG.keys.anyPressed(["LEFT", "A"]);
     var _right:Bool = FlxG.keys.anyPressed(["RIGHT", "D"]);
     var _down:Bool = FlxG.keys.anyPressed(["DOWN", "S"]);
     var _pressed:Bool = FlxG.mouse.pressed;
 
-    if (_up && isTouching(flixel.FlxObject.FLOOR))
+    if (_up && _canJump)
     {
       jumpUp();
     }
@@ -161,6 +163,11 @@ class Player extends FlxSprite
   public function giveSeeds(count:Int)
   {
     seedCount += count;
+  }
+
+  public function setCanJump(canJump:Bool)
+  {
+    _canJump = canJump;
   }
 
   public function jumpUp():Void

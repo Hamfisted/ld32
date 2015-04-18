@@ -69,7 +69,7 @@ class PlayState extends FlxState
       "Always collide the map with objects, not the other way around."
       http://api.haxeflixel.com/flixel/addons/editors/ogmo/FlxOgmoLoader.html
     */
-    FlxG.collide(_mWalls, _player);
+    FlxG.collide(_mWalls, _player, CollisionLogic.WallPlayer);
     FlxG.collide(_mWalls, _grpBullets, CollisionLogic.WallBullet);
     FlxG.collide(_mWalls, _grpBeavers, CollisionLogic.WallBeaver);
     FlxG.collide(_player, _grpSpikes, CollisionLogic.PlayerSpike);
