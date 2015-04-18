@@ -139,5 +139,6 @@
     <seed_pickup id="8" x="496" y="672" />
     <seed_pickup id="10" x="432" y="672" />
     <seed_pickup id="9" x="512" y="672" />
+    <level_end id="11" x="800" y="480" />
   </entities>
 </level>
