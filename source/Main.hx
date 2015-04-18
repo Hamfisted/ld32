@@ -10,8 +10,8 @@ import flixel.FlxState;
 
 class Main extends Sprite
 {
-  var gameWidth:Int = 512; // Width of the game in pixels (might be less / more in actual pixels depending on your zoom).
-  var gameHeight:Int = 288; // Height of the game in pixels (might be less / more in actual pixels depending on your zoom).
+  var gameWidth:Int = 432; // Width of the game in pixels (might be less / more in actual pixels depending on your zoom).
+  var gameHeight:Int = 243; // Height of the game in pixels (might be less / more in actual pixels depending on your zoom).
   #if debug
     var initialState:Class<FlxState> = PlayState; // The FlxState the game starts with.
   #else

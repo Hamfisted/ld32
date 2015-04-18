@@ -8,14 +8,23 @@
         padding: 0;
         background-color: black;
       }
+      #container {
+        min-width: 864px;
+        min-height: 486px;
+        max-width: 1296px;
+        max-height: 729px;
+        margin: 0 auto;
+      }
     </style>
   </head>
   <body>
-    <object width="100%" height="100%" />
-      <param name="movie" value="ld32.swf" />
-      <param name="scale" value="default" />
-      <embed src="ld32.swf" type="application/x-shockwave-flash" width="100%" height="100%" />
-    </object>
+    <div id="container">
+      <object width="100%" height="100%" />
+        <param name="movie" value="ld32.swf" />
+        <param name="scale" value="default" />
+        <embed src="ld32.swf" type="application/x-shockwave-flash" width="100%" height="100%" />
+      </object>
+    </div>
   </body>
 
 </html>

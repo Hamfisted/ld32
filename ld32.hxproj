@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <project version="2">
   <!-- Output SWF options -->
   <output>
@@ -6,8 +6,8 @@
     <movie input="" />
     <movie path="Project.xml" />
     <movie fps="60" />
-    <movie width="1024" />
-    <movie height="576" />
+    <movie width="864" />
+    <movie height="486" />
     <movie version="1" />
     <movie minorVersion="0" />
     <movie platform="Lime" />
