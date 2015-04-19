@@ -25,6 +25,14 @@ class CollisionLogic
     }
   }
 
+  public static function BounceObject(bouncePad:BouncePad, obj:FlxObject)
+  {
+    if (bouncePad.isTouching(FlxObject.UP))
+    {
+      bouncePad.bounceObject(obj);
+    }
+  }
+
   public static function PlayerSeed(player:Player, seed:SeedPickup)
   {
     seed.kill();

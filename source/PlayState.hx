@@ -26,6 +26,7 @@ class PlayState extends FlxState
   private var _grpSeedPickups:FlxTypedGroup<SeedPickup>;
   private var _grpBeavers:FlxTypedGroup<Beaver>;
   private var _grpPatches:FlxTypedGroup<Patch>;
+  private var _grpBouncePads:FlxTypedGroup<BouncePad>;
 
   /**
    * Function that is called up when to state is created to set it up.
@@ -41,6 +42,7 @@ class PlayState extends FlxState
     _player = new Player();
     _grpBullets = _player.seedShooter.group;
 
+    _grpBouncePads = new FlxTypedGroup<BouncePad>();
     _grpBeavers = new FlxTypedGroup<Beaver>();
     _grpPatches = new FlxTypedGroup<Patch>();
 
@@ -74,12 +76,16 @@ class PlayState extends FlxState
     FlxG.collide(_mWalls, _player);
     FlxG.collide(_mWalls, _grpBullets, CollisionLogic.WallBullet);
     FlxG.collide(_mWalls, _grpBeavers, CollisionLogic.WallBeaver);
+
     FlxG.collide(_player, _grpSpikes, CollisionLogic.PlayerSpike);
     FlxG.overlap(_player, _grpSeedPickups, CollisionLogic.PlayerSeed);
     FlxG.collide(_player, _levelEnd, winLevel);
-
     FlxG.collide(_player, _grpBeavers, CollisionLogic.PlayerBeaver);
+
     FlxG.overlap(_grpBullets, _grpBeavers, CollisionLogic.BulletBeaver);
+
+    FlxG.collide(_grpBouncePads, _player, CollisionLogic.BounceObject);
+    FlxG.collide(_grpBouncePads, _grpBeavers, CollisionLogic.BounceObject);
 
     // Patches
     FlxG.collide(_player, _grpPatches);
@@ -131,13 +137,14 @@ class PlayState extends FlxState
     add(_grpBeavers);
     add(_grpPatches);
     add(_grpBullets);
+    add(_grpBouncePads);
 
     FlxG.camera.follow(_player, FlxCamera.STYLE_PLATFORMER);
   }
 
   private function cleanupStage():Void
   {
-    var spriteGroups:Array<Dynamic> = [_grpSpikes, _grpSeedPickups, _grpBeavers, _grpPatches];
+    var spriteGroups:Array<Dynamic> = [_grpSpikes, _grpSeedPickups, _grpBeavers, _grpPatches, _grpBouncePads];
     // Remove objects from state
     remove(_mWalls);
     remove(_player);
@@ -181,6 +188,14 @@ class PlayState extends FlxState
     else if (entityName == "grow_patch")
     {
       _grpPatches.add(new GrowPatch(x, y, entityData.get("direction")));
+    }
+    else if (entityName == "bounce_pad")
+    {
+      _grpBouncePads.add(new BouncePad(x, y,
+        Std.parseFloat(entityData.get("dest_x")),
+        Std.parseFloat(entityData.get("dest_y")),
+        Std.parseFloat(entityData.get("air_time")),
+        Std.parseFloat(entityData.get("y_overshoot"))));
     }
   }
 

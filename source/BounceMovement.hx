@@ -14,24 +14,31 @@ class BounceMovement
                                   yAccel:Float, yOvershoot:Float, airTime:Float)
   {
     var sourceWorld = obj.getMidpoint();
-    var fallTime = 0.0;
-    if (sourceWorld.y > destWorld.y)
+    var yDistAfterPeak = 0.0;
+    var yDistBeforePeak = 0.0;
+    if (sourceWorld.y < destWorld.y)
     { // dropping down
-      fallTime = FallTimeAfterPeak(sourceWorld.y + yOvershoot - destWorld.y, yAccel);
+      yDistBeforePeak = yOvershoot;
+      yDistAfterPeak = -(destWorld.y - sourceWorld.y);
     }
     else
     {
-      fallTime = FallTimeAfterPeak(yOvershoot, yAccel);
+      yDistBeforePeak = -(destWorld.y - sourceWorld.y) - yOvershoot;
+      yDistAfterPeak = yOvershoot;
     }
+    var fallTime = FallTimeAfterPeak(yDistAfterPeak, yAccel);
 
-    if (airTime - fallTime < 0.0)
+    if ((airTime - fallTime) < 0.0)
     {
       airTime = fallTime + fallTime;
     }
 
     var riseTime = airTime - fallTime;
-    var initYVelocity = -yAccel * riseTime;
+
     var initXVelocity = (destWorld.x - sourceWorld.x) / airTime;
+    var initYVelocity = -yDistBeforePeak / riseTime - 0.5 * yAccel * riseTime;
+
+    //FlxG.log.add('${initXVelocity}, ${initYVelocity}, ${fallTime}, ${riseTime}');
 
     obj.velocity.x = initXVelocity;
     obj.velocity.y = initYVelocity;
