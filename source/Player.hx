@@ -17,8 +17,7 @@ class Player extends FlxSprite
 
   var lastVelocity:FlxPoint;
 
-  public var seedTrail:FlxTypedGroup<SeedPickup>;
-  var seedTrailBounceTimer:Int;
+  public var seedTrail:FlxTypedGroup<BouncingSeed>;
 
   var GRAVITY:Int = 800;
   var JUMP_SPEED:Int = -240;
@@ -66,23 +65,19 @@ class Player extends FlxSprite
     seedShooter.setBulletBounds(new FlxRect(0, 0, 2400, 2400));
     seedShooter.setBulletLifeSpan(4);
 
-    seedTrail = new FlxTypedGroup<SeedPickup>();
-    seedTrailBounceTimer = FlxG.game.ticks + 100;
+    seedTrail = new FlxTypedGroup<BouncingSeed>();
   }
 
   function makeTestSeedTrail():Void
   {
-    for (i in 0...20)
+    for (i in 0...5)
     {
-      var seed = new SeedPickup(this.x, this.y);
-      seed.acceleration.y = GRAVITY;
-      seedTrail.add(seed);
+      seedTrail.add(new BouncingSeed(this.x, this.y, this, GRAVITY));
     }
   }
 
   override public function update():Void
   {
-    animateSeeds();
     movement();
     if (alive)
     {
@@ -114,7 +109,6 @@ class Player extends FlxSprite
     seedTrail.callAll("destroy");
     seedTrail.clear();
     makeTestSeedTrail();
-    seedTrailBounceTimer = FlxG.game.ticks + 100;
   }
 
   private function shouldBeDead():Bool
@@ -189,16 +183,6 @@ class Player extends FlxSprite
   private function outOfBounds():Bool
   {
     return this.y > 2400;
-  }
-
-  private function animateSeeds():Void
-  {
-    if (seedTrailBounceTimer < FlxG.game.ticks)
-    {
-      seedTrailBounceTimer += 100;
-      FlxG.log.add('seedbounce');
-      BounceMovement.BounceTo(seedTrail.getRandom(), this.getMidpoint(), GRAVITY, 1.0);
-    }
   }
 
   public function giveSeeds(count:Int)
