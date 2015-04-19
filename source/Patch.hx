@@ -31,7 +31,7 @@ class Patch extends FlxTypedGroup<PatchChildSprite>
     super.update();
   }
 
-  public function touchSeed(seed:FlxBullet):Void
+  public function touchSeed(seed:FlxBullet, child:PatchChildSprite):Void
   {
     throw "not implemented";
   }

@@ -69,7 +69,7 @@ class CollisionLogic
     // so let's check if it already got killed this frame.
     if (bullet.exists)
     {
-      child.parent.touchSeed(bullet);
+      child.parent.touchSeed(bullet, child);
       bullet.kill();
     }
   }

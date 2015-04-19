@@ -29,7 +29,7 @@ class GrowPatch extends Patch
     super.update();
   }
 
-  override public function touchSeed(seed:FlxBullet):Void
+  override public function touchSeed(seed:FlxBullet, child:PatchChildSprite):Void
   {
     grow();
   }
