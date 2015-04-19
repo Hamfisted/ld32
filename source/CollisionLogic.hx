@@ -44,25 +44,40 @@ class CollisionLogic
     player.kill();
   }
 
-  public static function BulletBeaver(bullet:FlxBullet, beaver:Beaver)
+  public static function BulletBeaver(bullet:SeedBullet, beaver:Beaver)
   {
-    bullet.kill();
-    beaver.kill();
+    if (bullet.exists && !bullet.isReturning)
+    {
+      beaver.kill();
+      bullet.returnToPlayer();
+    }
   }
 
-  public static function WallBullet(wall:FlxTilemap, bullet:FlxBullet)
+  public static function WallBullet(wall:FlxTilemap, bullet:SeedBullet)
   {
-    bullet.kill();
+    if (bullet.exists && !bullet.isReturning)
+    {
+      bullet.returnToPlayer();
+    }
   }
 
-  public static function BulletPatch(bullet:FlxBullet, child:PatchChildSprite)
+  public static function PlayerBullet(player:Player, bullet:SeedBullet)
+  {
+    if (bullet.isReturning)
+    {
+      bullet.kill();
+      player.giveSeeds(1);
+    }
+  }
+
+  public static function BulletPatch(bullet:SeedBullet, child:PatchChildSprite)
   {
     //   A bullet can hit multiple things during the same frame,
     // so let's check if it already got killed this frame.
-    if (bullet.exists)
+    if (bullet.exists && !bullet.isReturning)
     {
       child.parent.touchSeed(bullet, child);
-      bullet.kill();
+      bullet.touchPatch();
     }
   }
 }

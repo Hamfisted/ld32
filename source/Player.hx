@@ -64,13 +64,13 @@ class Player extends FlxSprite
     acceleration.y = GRAVITY;
 
     // Just makes 20 bullets for now
-    seedShooter = new FlxWeapon("seed_shooter", this);
+    seedShooter = new FlxWeapon("seed_shooter", this, SeedBullet);
     seedShooter.makePixelBullet(20, 4, 4, FlxColor.LIME);
-    seedShooter.setBulletSpeed(400);
+    seedShooter.setBulletSpeed(SeedBullet.SPEED);
     seedShooter.setFireRate(200);
-    seedShooter.setBulletOffset(12, 12);
+    seedShooter.setBulletOffset(12, 8);
     seedShooter.setBulletBounds(new FlxRect(0, 0, 2400, 2400));
-    seedShooter.setBulletLifeSpan(4);
+    seedShooter.setBulletLifeSpan(10);
 
     seedTrail = new FlxTypedGroup<BouncingSeed>();
   }

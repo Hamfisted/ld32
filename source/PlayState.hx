@@ -42,6 +42,8 @@ class PlayState extends FlxState
     _grpSeedPickups = new FlxTypedGroup<SeedPickup>();
     _levelEnd = new LevelEnd();
     _player = new Player();
+    // Fixme
+    Reg.player = _player;
     _grpBullets = _player.seedShooter.group;
 
     _grpBouncePads = new FlxTypedGroup<BouncePad>();
@@ -84,6 +86,7 @@ class PlayState extends FlxState
     FlxG.overlap(_player, _grpSeedPickups, CollisionLogic.PlayerSeed);
     FlxG.collide(_player, _levelEnd, winLevel);
     FlxG.collide(_player, _grpBeavers, CollisionLogic.PlayerBeaver);
+    FlxG.overlap(_player, _grpBullets, CollisionLogic.PlayerBullet);
 
     FlxG.overlap(_grpBullets, _grpBeavers, CollisionLogic.BulletBeaver);
 
