@@ -16,7 +16,7 @@ class BounceMovement
     var sourceWorld = obj.getMidpoint();
 
     var initXVelocity = (destWorld.x - sourceWorld.x) / airTime;
-    var initYVelocity = (sourceWorld.y + 0.5 * yAccel * airTime * airTime - sourceWorld.y) / airTime;
+    var initYVelocity = (sourceWorld.y + 0.5 * yAccel * airTime * airTime - destWorld.y) / airTime;
 
     obj.velocity.x = initXVelocity;
     obj.velocity.y = -initYVelocity;
