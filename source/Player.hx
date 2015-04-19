@@ -112,6 +112,7 @@ class Player extends FlxSprite
     seedCount = 0;
     isShooting = false;
     lastVelocity.copyFrom(velocity);
+    seedShooter.group.callAll("kill");
 
     seedTrail.callAll("destroy");
     seedTrail.clear();
