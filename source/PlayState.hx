@@ -94,7 +94,7 @@ class PlayState extends FlxState
 
     _hud.updateHUD(_player);
 
-    if (!_player.alive) {
+    if (!_player.alive || FlxG.keys.anyPressed(["R"])) {
       loadLevel(Reg.level);
     }
   }
