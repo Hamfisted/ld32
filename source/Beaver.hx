@@ -69,13 +69,13 @@ class Beaver extends FlxSprite
       var dest = this.getMidpoint();
       if (facing == FlxObject.RIGHT)
       {
-        dest.x += 10.0;
+        dest.x += 16.0;
       }
       else
       {
-        dest.x -= 10.0;
+        dest.x -= 16.0;
       }
-      BounceMovement.BounceTo(this, dest, this.acceleration.y, 10.0, 0.5);
+      BounceMovement.BounceTo(this, dest, this.acceleration.y, 0.5);
     }
   }
 

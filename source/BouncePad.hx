@@ -27,8 +27,7 @@ class BouncePad extends FlxSprite
 
   public function bounceObject(obj:FlxObject)
   {
-    BounceMovement.BounceTo(obj, _destPoint, obj.acceleration.y,
-                            _yOvershoot, _airTime);
+    BounceMovement.BounceTo(obj, _destPoint, obj.acceleration.y, _airTime);
   }
 
 }
