@@ -79,5 +79,6 @@
     <seed_pickup id="12" x="352" y="416" />
     <seed_pickup id="13" x="368" y="416" />
     <player id="14" x="80" y="96" />
+    <seed_pickup id="15" x="224" y="272" />
   </entities>
 </level>

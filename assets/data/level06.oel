@@ -64,16 +64,6 @@
 1,1,1,1,1,1,1,1,1,33,33,33,33,1,1,1,1,1,1,1,1,1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1
 1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1</walls>
   <entities>
-    <grow_patch id="1" x="224" y="864" direction="left" />
-    <grow_patch id="2" x="224" y="880" direction="left" />
-    <grow_patch id="4" x="224" y="800" direction="left" />
-    <grow_patch id="5" x="224" y="816" direction="left" />
-    <grow_patch id="7" x="112" y="832" direction="right" />
-    <grow_patch id="8" x="112" y="848" direction="right" />
-    <grow_patch id="9" x="160" y="992" direction="up" />
-    <grow_patch id="10" x="144" y="992" direction="up" />
-    <grow_patch id="11" x="176" y="992" direction="up" />
-    <grow_patch id="12" x="192" y="992" direction="up" />
     <seed_pickup id="13" x="256" y="976" />
     <seed_pickup id="14" x="240" y="976" />
     <seed_pickup id="15" x="272" y="976" />
@@ -81,8 +71,12 @@
     <seed_pickup id="17" x="304" y="976" />
     <player id="18" x="48" y="960" />
     <level_end id="19" x="48" y="768" />
-    <grow_patch id="0" x="112" y="896" direction="right" />
-    <grow_patch id="3" x="112" y="912" direction="right" />
     <seed_pickup id="6" x="224" y="976" />
+    <grow_patch_horizontal id="0" x="112" y="896" direction="right" />
+    <grow_patch_horizontal id="1" x="112" y="832" direction="right" />
+    <grow_patch_horizontal id="2" x="224" y="800" direction="left" />
+    <grow_patch_horizontal id="3" x="224" y="864" direction="left" />
+    <grow_patch id="4" x="144" y="992" direction="up" />
+    <grow_patch id="5" x="176" y="992" direction="up" />
   </entities>
 </level>
