@@ -26,6 +26,9 @@ class Player extends FlxSprite
 
   public var seedCount:Int = 0;
 
+  var lastFiredTime:Int;
+  var isShooting:Bool = false;
+
   public function new(X:Float=0, Y:Float=0)
   {
     super(X, Y);
@@ -34,7 +37,7 @@ class Player extends FlxSprite
 
     lastVelocity = new FlxPoint(0, 0);
 
-    loadGraphic(AssetPaths.sapling_run__png, true, 32, 32);
+    loadGraphic(AssetPaths.sapling__png, true, 32, 32);
     setFacingFlip(FlxObject.RIGHT, false, false);
     setFacingFlip(FlxObject.LEFT, true, false);
 
@@ -42,6 +45,7 @@ class Player extends FlxSprite
     offset.set(4, 4);
 
     animation.add("run", [0, 1, 2, 3, 4], 12, true);
+    animation.add("shoot", [6, 7, 8, 9, 10, 11], 14, false);
 
     solid = true;
     collisonXDrag = false;
@@ -54,7 +58,7 @@ class Player extends FlxSprite
     seedShooter = new FlxWeapon("seed_shooter", this);
     seedShooter.makePixelBullet(20, 4, 4, FlxColor.LIME);
     seedShooter.setBulletSpeed(400);
-    seedShooter.setFireRate(200);
+    seedShooter.setFireRate(1000);
     seedShooter.setBulletOffset(12, 12);
     seedShooter.setBulletBounds(new FlxRect(0, 0, 2400, 2400));
     seedShooter.setBulletLifeSpan(4);
@@ -88,6 +92,7 @@ class Player extends FlxSprite
     super.reset(X, Y);
     velocity.set(0, 0);
     seedCount = 0;
+    isShooting = false;
     lastVelocity.copyFrom(velocity);
   }
 
@@ -123,19 +128,38 @@ class Player extends FlxSprite
 
     lastVelocity.copyFrom(velocity);
 
-    if (seedCount > 0 && _pressed)
+    //   Horrible mess that plays the shooting animation but delays the
+    // bullet until a certain time. And prevents other animations from
+    // interrupting the shooting animation.
+    if (!isShooting && seedCount > 0 && _pressed)
     {
-      if (seedShooter.fireAtMouse()) {
-        seedCount--;
-      }
+      isShooting = true;
+      lastFiredTime = FlxG.game.ticks;
+      animation.play("shoot");
     }
 
-    if (_left || _right)
+    if (isShooting) {
+      if (animation.finished)
+      {
+        isShooting = false;
+        lastFiredTime = 0;
+      }
+      else if (FlxG.game.ticks - lastFiredTime > 240)
+      {
+        if (seedShooter.fireAtMouse()) {
+          seedCount--;
+        }
+
+      }
+    }
+    else if (_left || _right)
     {
       animation.play("run");
     }
     else
     {
+      // Standing still, so pause at first frame of "run" animation
+      animation.play("run");
       animation.frameIndex = 0;
       animation.pause();
     }
