@@ -5,6 +5,7 @@ import flixel.util.FlxColor;
 import flixel.FlxObject;
 import flixel.FlxSprite;
 import flixel.util.FlxMath;
+import flixel.util.FlxVelocity;
 
 /**
  * ...
@@ -40,6 +41,16 @@ class BouncingSeed extends FlxSprite
       var distanceToTarget = FlxMath.getDistance(this.getMidpoint(), targetPos);
 
       this.drag.x = 0;
+      if (distanceToTarget > 128.0)
+      {
+        FlxVelocity.moveTowardsPoint(this, _target.getMidpoint(), 10);
+        this.allowCollisions = FlxObject.NONE;
+      }
+      else
+      {
+        this.allowCollisions = FlxObject.ANY;
+      }
+
       if (distanceToTarget < 16.0)
       {
         _nextUpdateMilli = FlxG.game.ticks + 500;

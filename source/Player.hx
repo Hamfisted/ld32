@@ -26,7 +26,7 @@ class Player extends FlxSprite
 
   public var speed:Int = 140;
 
-  public var seedCount:Int = 0;
+  var seedCount:Int = 0;
 
   var isShooting:Bool = false;
 
@@ -77,10 +77,14 @@ class Player extends FlxSprite
 
   function makeTestSeedTrail():Void
   {
-    for (i in 0...5)
+    for (i in 0...20)
     {
       seedTrail.add(new BouncingSeed(this.x, this.y, this, GRAVITY));
     }
+    // kill all seeds initially, but keep the container alive...?
+    seedTrail.kill();
+    seedTrail.revive();
+    //FlxG.log.add('${seedTrail.countDead()}');
   }
 
   override public function update():Void
@@ -160,7 +164,7 @@ class Player extends FlxSprite
       animation.play("shoot");
       haxe.Timer.delay(function() {
         if (seedShooter.fireAtMouse()) {
-          seedCount--;
+          useSeed();
         }
       }, 250);
     }
@@ -189,9 +193,28 @@ class Player extends FlxSprite
     return this.y > 2400;
   }
 
+  private function useSeed()
+  {
+    // assert seedCount > 0
+    --seedCount;
+    seedTrail.getFirstAlive().kill();
+  }
+
   public function giveSeeds(count:Int)
   {
     seedCount += count;
+    for (i in 0...count)
+    {
+      var seed = seedTrail.getFirstDead();
+      seed.revive();
+      seed.set_x(this.x);
+      seed.set_y(this.y);
+    }
+  }
+
+  public function getNumSeeds():Int
+  {
+    return seedCount;
   }
 
   public function jumpUp():Void

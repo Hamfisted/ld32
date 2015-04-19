@@ -41,6 +41,6 @@ class HUD extends FlxTypedGroup<FlxSprite>
 
   public function updateHUD(P:Player):Void
   {
-    _txtSeedCount.text = "Seeds: " + Std.string(P.seedCount);
+    _txtSeedCount.text = "Seeds: " + Std.string(P.getNumSeeds());
   }
 }
