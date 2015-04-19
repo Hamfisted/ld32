@@ -57,7 +57,12 @@ class CollisionLogic
 
   public static function BulletPatch(bullet:FlxBullet, child:PatchChildSprite)
   {
-    bullet.kill();
-    child.parent.touchSeed(bullet);
+    //   A bullet can hit multiple things during the same frame,
+    // so let's check if it already got killed this frame.
+    if (bullet.exists)
+    {
+      child.parent.touchSeed(bullet);
+      bullet.kill();
+    }
   }
 }
