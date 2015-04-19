@@ -59,6 +59,11 @@ class Beaver extends FlxSprite
 
   private function movement():Void
   {
+    if (isTouching(FlxObject.WALL))
+    {
+      changeDirection();
+    }
+
     if (isTouching(FlxObject.FLOOR))
     {
       var dest = this.getMidpoint();

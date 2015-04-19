@@ -75,7 +75,7 @@ class PlayState extends FlxState
     */
     FlxG.collide(_mWalls, _player);
     FlxG.collide(_mWalls, _grpBullets, CollisionLogic.WallBullet);
-    FlxG.collide(_mWalls, _grpBeavers, CollisionLogic.WallBeaver);
+    FlxG.collide(_mWalls, _grpBeavers);
 
     FlxG.collide(_player, _grpSpikes, CollisionLogic.PlayerSpike);
     FlxG.overlap(_player, _grpSeedPickups, CollisionLogic.PlayerSeed);

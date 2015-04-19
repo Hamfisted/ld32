@@ -50,14 +50,6 @@ class CollisionLogic
     beaver.kill();
   }
 
-  public static function WallBeaver(wall:FlxTilemap, beaver:Beaver)
-  {
-    if (beaver.isTouching(FlxObject.WALL))
-    {
-      beaver.changeDirection();
-    }
-  }
-
   public static function WallBullet(wall:FlxTilemap, bullet:FlxBullet)
   {
     bullet.kill();
