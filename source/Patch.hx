@@ -16,7 +16,6 @@ class Patch extends FlxTypedGroup<PatchChildSprite>
 
   var x:Float;
   var y:Float;
-  var _patchSprite:PatchChildSprite;
 
   public function new(X:Float=0, Y:Float=0, PType:String)
   {
@@ -25,12 +24,6 @@ class Patch extends FlxTypedGroup<PatchChildSprite>
     y = Y;
 
     ptype = PType;
-
-    _patchSprite = new PatchChildSprite(X, Y, this);
-    _patchSprite.solid = true;
-    _patchSprite.immovable = true;
-
-    this.add(_patchSprite);
   }
 
   override public function update():Void

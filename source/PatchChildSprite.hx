@@ -10,6 +10,8 @@ class PatchChildSprite extends FlxSprite
   {
     super(X, Y);
     parent = Parent;
+    this.solid = true;
+    this.immovable = true;
   }
 
   override public function update():Void

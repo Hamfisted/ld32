@@ -197,6 +197,14 @@ class PlayState extends FlxState
         Std.parseFloat(entityData.get("air_time")),
         Std.parseFloat(entityData.get("y_overshoot"))));
     }
+    else if (entityName == "decay_patch")
+    {
+      _grpPatches.add(
+        new DecayPatch(x, y,
+          Std.parseInt(entityData.get("width")), Std.parseInt(entityData.get("height"))
+        )
+      );
+    }
   }
 
 }

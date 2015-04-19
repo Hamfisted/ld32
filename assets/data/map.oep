@@ -16,7 +16,7 @@
     <Width>2048</Width>
     <Height>2048</Height>
   </LevelMaximumSize>
-  <Filename>C:\Users\Warmachine\Documents\GitHub\ld32\assets\data\map.oep</Filename>
+  <Filename>Y:\projects\ld32\assets\data\map.oep</Filename>
   <AngleMode>Degrees</AngleMode>
   <CameraEnabled>true</CameraEnabled>
   <CameraSize>
@@ -174,6 +174,21 @@
         <ValueDefinition xsi:type="FloatValueDefinition" Name="air_time" Default="1.5" Min="0" Max="5" Round="0.1" />
         <ValueDefinition xsi:type="FloatValueDefinition" Name="y_overshoot" Default="32" Min="0" Max="2048" Round="0.1" />
       </ValueDefinitions>
+      <NodesDefinition Enabled="false" Limit="-1" DrawMode="None" Ghost="false" />
+    </EntityDefinition>
+    <EntityDefinition Name="decay_patch" Limit="-1" ResizableX="true" ResizableY="true" Rotatable="false" RotateIncrement="15">
+      <Size>
+        <Width>16</Width>
+        <Height>16</Height>
+      </Size>
+      <Origin>
+        <X>0</X>
+        <Y>0</Y>
+      </Origin>
+      <ImageDefinition DrawMode="Rectangle" ImagePath="" Tiled="false">
+        <RectColor A="255" R="128" G="128" B="128" />
+      </ImageDefinition>
+      <ValueDefinitions />
       <NodesDefinition Enabled="false" Limit="-1" DrawMode="None" Ghost="false" />
     </EntityDefinition>
   </EntityDefinitions>

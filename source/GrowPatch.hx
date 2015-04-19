@@ -11,6 +11,7 @@ import flixel.addons.weapon.FlxBullet;
 class GrowPatch extends Patch
 {
   public var direction:String;
+  var _patchSprite:PatchChildSprite;
 
   public function new(X:Float=0, Y:Float=0, Direction:String="up")
   {
@@ -18,7 +19,9 @@ class GrowPatch extends Patch
     direction = Direction;
 
     // todo: add real sprite
+    _patchSprite = new PatchChildSprite(X, Y, this);
     _patchSprite.makeGraphic(16, 16, FlxColor.BROWN);
+    this.add(_patchSprite);
   }
 
   override public function update():Void
@@ -42,8 +45,6 @@ class GrowPatch extends Patch
     {
       segment.makeGraphic(32, 16, FlxColor.BROWN);
     }
-    segment.solid = true;
-    segment.immovable = true;
     segment.updateHitbox();
     return segment;
   }
