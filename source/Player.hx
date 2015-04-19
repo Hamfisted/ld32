@@ -17,6 +17,9 @@ class Player extends FlxSprite
 
   var lastVelocity:FlxPoint;
 
+  public var seedTrail:FlxTypedGroup<SeedPickup>;
+  var seedTrailBounceTimer:Float;
+
   var GRAVITY:Int = 800;
   var JUMP_SPEED:Int = -240;
 
@@ -62,11 +65,22 @@ class Player extends FlxSprite
     seedShooter.setBulletOffset(12, 12);
     seedShooter.setBulletBounds(new FlxRect(0, 0, 2400, 2400));
     seedShooter.setBulletLifeSpan(4);
+
+    seedTrail = new FlxTypedGroup<SeedPickup>();
+    var i = 0;
+    while (i < 20)
+    {
+      var seed = new SeedPickup(this.x, this.y);
+      seed.acceleration.y = GRAVITY;
+      seedTrail.add(seed);
+      ++i;
+    }
+    seedTrailBounceTimer = FlxG.game.ticks + 100;
   }
 
   override public function update():Void
   {
-    animateCollision();
+    animateSeeds();
     movement();
     if (alive)
     {
@@ -94,6 +108,10 @@ class Player extends FlxSprite
     seedCount = 0;
     isShooting = false;
     lastVelocity.copyFrom(velocity);
+
+    seedTrail.kill();
+    seedTrail.clear();
+    seedTrailBounceTimer = FlxG.game.ticks + 100;
   }
 
   private function shouldBeDead():Bool
@@ -170,17 +188,14 @@ class Player extends FlxSprite
     return this.y > 2400;
   }
 
-  private function animateCollision():Void
+  private function animateSeeds():Void
   {
-    var shakeY = Math.abs(lastVelocity.y - velocity.y)/30000;
-    var shakeAmount = shakeY + Math.abs(lastVelocity.x - velocity.x)/30000;
-
-    /* Let's disable shake for now. It's annoying! */
-
-    // if (shakeAmount > 0.01 && justTouched(FlxObject.FLOOR))
-    // {
-    //   FlxG.camera.shake(shakeAmount, 0.1);
-    // }
+    if (seedTrailBounceTimer < FlxG.game.ticks)
+    {
+      seedTrailBounceTimer += 100;
+      FlxG.log.add('seedbounce');
+      BounceMovement.BounceTo(seedTrail.getRandom(), this.getMidpoint(), GRAVITY, 1.0);
+    }
   }
 
   public function giveSeeds(count:Int)
