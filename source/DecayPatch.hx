@@ -95,7 +95,7 @@ class DecayPatch extends Patch
     // this is probably horrible
     for (n in neighbors)
     {
-      haxe.Timer.delay(function() { decay(n[0], n[1]); }, 100);
+      haxe.Timer.delay(function() { decay(n[0], n[1]); }, 300);
     }
 
   }
