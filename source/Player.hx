@@ -167,7 +167,7 @@ class Player extends FlxSprite
 
   private function outOfBounds():Bool
   {
-    return this.y > 800;
+    return this.y > 2400;
   }
 
   private function animateCollision():Void
