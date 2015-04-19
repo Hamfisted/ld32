@@ -18,7 +18,7 @@ class Player extends FlxSprite
   var lastVelocity:FlxPoint;
 
   public var seedTrail:FlxTypedGroup<SeedPickup>;
-  var seedTrailBounceTimer:Float;
+  var seedTrailBounceTimer:Int;
 
   var GRAVITY:Int = 800;
   var JUMP_SPEED:Int = -240;
@@ -67,15 +67,17 @@ class Player extends FlxSprite
     seedShooter.setBulletLifeSpan(4);
 
     seedTrail = new FlxTypedGroup<SeedPickup>();
-    var i = 0;
-    while (i < 20)
+    seedTrailBounceTimer = FlxG.game.ticks + 100;
+  }
+
+  function makeTestSeedTrail():Void
+  {
+    for (i in 0...20)
     {
       var seed = new SeedPickup(this.x, this.y);
       seed.acceleration.y = GRAVITY;
       seedTrail.add(seed);
-      ++i;
     }
-    seedTrailBounceTimer = FlxG.game.ticks + 100;
   }
 
   override public function update():Void
@@ -109,8 +111,9 @@ class Player extends FlxSprite
     isShooting = false;
     lastVelocity.copyFrom(velocity);
 
-    seedTrail.kill();
+    seedTrail.callAll("destroy");
     seedTrail.clear();
+    makeTestSeedTrail();
     seedTrailBounceTimer = FlxG.game.ticks + 100;
   }
 
