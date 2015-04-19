@@ -20,6 +20,8 @@ class PlayState extends FlxState
   private var _player:Player;
   private var _map:FlxOgmoLoader;
   private var _mWalls:FlxTilemap;
+  private var _mBackground1:FlxTilemap;
+  private var _mBackground2:FlxTilemap;
   private var _levelEnd:LevelEnd;
   private var _grpSpikes:FlxTypedGroup<Spike>;
   private var _grpBullets:FlxTypedGroup<FlxBullet>;
@@ -125,6 +127,17 @@ class PlayState extends FlxState
     cleanupStage();
 
     _map = new FlxOgmoLoader(levelPath);
+    // back-background
+    _mBackground2 = _map.loadTilemap(AssetPaths.bg__png, 51, 51, "bg2");
+    _mBackground2.setTileProperties(1, FlxObject.NONE, null, 3);
+    _mBackground2.scrollFactor.set(0.2, 1);
+    add(_mBackground2);
+    // fore-background
+    _mBackground1 = _map.loadTilemap(AssetPaths.bg__png, 51, 51, "bg1");
+    _mBackground1.setTileProperties(1, FlxObject.NONE, null, 3);
+    _mBackground1.scrollFactor.set(0.8, 1);
+    add(_mBackground1);
+    // walls
     _mWalls = _map.loadTilemap(AssetPaths.tiles__png, 16, 16, "walls");
     _mWalls.setTileProperties(1, FlxObject.ANY, null, 31);
     _mWalls.setTileProperties(32, FlxObject.NONE, null, 32);
@@ -150,6 +163,8 @@ class PlayState extends FlxState
   {
     var spriteGroups:Array<Dynamic> = [_grpSpikes, _grpSeedPickups, _grpBeavers, _grpPatches, _grpBouncePads];
     // Remove objects from state
+    remove(_mBackground2);
+    remove(_mBackground1);
     remove(_mWalls);
     remove(_player);
     remove(_player.seedTrail);
@@ -157,6 +172,8 @@ class PlayState extends FlxState
     remove(_grpBullets);
     remove(_levelEnd);
     // Remove groups & destroy nested objects as necessary
+    FlxDestroyUtil.destroy(_mBackground2);
+    FlxDestroyUtil.destroy(_mBackground1);
     FlxDestroyUtil.destroy(_mWalls);
     for (group in spriteGroups)
     {

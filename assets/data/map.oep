@@ -16,7 +16,7 @@
     <Width>2048</Width>
     <Height>2048</Height>
   </LevelMaximumSize>
-  <Filename>C:\Users\Warmachine\Documents\GitHub\ld32\assets\data\map.oep</Filename>
+  <Filename>Y:\projects\ld32\assets\data\map.oep</Filename>
   <AngleMode>Degrees</AngleMode>
   <CameraEnabled>true</CameraEnabled>
   <CameraSize>
@@ -28,6 +28,30 @@
     <ValueDefinition xsi:type="IntValueDefinition" Name="level" Default="0" Min="0" Max="100" ShowSlider="false" />
   </LevelValueDefinitions>
   <LayerDefinitions>
+    <LayerDefinition xsi:type="TileLayerDefinition">
+      <Name>bg2</Name>
+      <Grid>
+        <Width>51</Width>
+        <Height>51</Height>
+      </Grid>
+      <ScrollFactor>
+        <X>1</X>
+        <Y>1</Y>
+      </ScrollFactor>
+      <ExportMode>CSV</ExportMode>
+    </LayerDefinition>
+    <LayerDefinition xsi:type="TileLayerDefinition">
+      <Name>bg1</Name>
+      <Grid>
+        <Width>51</Width>
+        <Height>51</Height>
+      </Grid>
+      <ScrollFactor>
+        <X>1</X>
+        <Y>1</Y>
+      </ScrollFactor>
+      <ExportMode>CSV</ExportMode>
+    </LayerDefinition>
     <LayerDefinition xsi:type="TileLayerDefinition">
       <Name>walls</Name>
       <Grid>
@@ -59,6 +83,15 @@
       <TileSize>
         <Width>16</Width>
         <Height>16</Height>
+      </TileSize>
+      <TileSep>0</TileSep>
+    </Tileset>
+    <Tileset>
+      <Name>bg</Name>
+      <FilePath>..\images\bg.png</FilePath>
+      <TileSize>
+        <Width>51</Width>
+        <Height>51</Height>
       </TileSize>
       <TileSep>0</TileSep>
     </Tileset>
