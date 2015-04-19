@@ -71,7 +71,7 @@
     <grow_patch id="4" x="240" y="992" direction="up" />
     <seed_pickup id="5" x="144" y="976" />
     <seed_pickup id="6" x="160" y="976" />
-    <player id="7" x="48" y="960" />
     <level_end id="8" x="352" y="880" />
+    <player id="7" x="48" y="960" />
   </entities>
 </level>
