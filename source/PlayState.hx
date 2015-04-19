@@ -187,7 +187,7 @@ class PlayState extends FlxState
         Std.parseFloat(entityData.get("jumpAirTime")),
         Std.parseFloat(entityData.get("jumpDist"))));
     }
-    else if (entityName == "grow_patch")
+    else if (entityName == "grow_patch" || entityName == "grow_patch_horizontal")
     {
       _grpPatches.add(new GrowPatch(x, y, entityData.get("direction")));
     }

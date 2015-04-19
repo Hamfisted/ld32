@@ -13,14 +13,37 @@ class GrowPatch extends Patch
   public var direction:String;
   var _patchSprite:PatchChildSprite;
 
+  // defaults for up/down
+  var patch_width:Int = 32;
+  var patch_height:Int = 16;
+  var segment_width:Int = 18;
+  var segment_height:Int = 32;
+
   public function new(X:Float=0, Y:Float=0, Direction:String="up")
   {
     super(X, Y, "grow");
     direction = Direction;
 
+    // Sanity check. TODO: use enum instead
+    if (direction != "up" && direction != "down" && direction != "left" && direction != "right")
+    {
+      trace("grow patch direction is invalid");
+    }
+
+    if (direction == "left" || direction == "right")
+    {
+      // swap heights and widths
+      var t:Int;
+      t = patch_width;
+      patch_width = patch_height;
+      patch_height = t;
+      t = segment_width;
+      segment_width = segment_height;
+      segment_height = t;
+    }
     // todo: add real sprite
     _patchSprite = new PatchChildSprite(X, Y, this);
-    _patchSprite.makeGraphic(16, 16, FlxColor.BROWN);
+    _patchSprite.makeGraphic(patch_width, patch_height, FlxColor.MAROON);
     this.add(_patchSprite);
   }
 
@@ -37,15 +60,8 @@ class GrowPatch extends Patch
   function makeTreeSegment():PatchChildSprite
   {
     var segment = new PatchChildSprite(x, y, this);
-    if (direction == "up" || direction == "down")
-    {
-      segment.makeGraphic(16, 32, FlxColor.BROWN);
-    }
-    else
-    {
-      segment.makeGraphic(32, 16, FlxColor.BROWN);
-    }
-    segment.updateHitbox();
+    segment.makeGraphic(segment_width, segment_height, FlxColor.BROWN);
+    // segment.updateHitbox();
     return segment;
   }
 
@@ -62,22 +78,30 @@ class GrowPatch extends Patch
     segment.x = lastSegment.x;
     segment.y = lastSegment.y;
 
-    if (direction == "up")
+    if (direction == "up" || direction == "down")
     {
-      segment.y -= 32;
+      segment.x = root.x + 0.5 * (patch_width - segment_width);
+      if (direction == "up")
+      {
+        segment.y -= segment_height;
+      }
+      else if (direction == "down")
+      {
+        segment.flipX = true;
+        segment.y += (root == lastSegment)? patch_height : segment_height;
+      }
     }
-    else if (direction == "down")
+    else
     {
-      segment.flipX = true;
-      segment.y += (root == lastSegment)? 16 : 32;
-    }
-    else if (direction == "right")
-    {
-      segment.x += (root == lastSegment)? 16 : 32;
-    }
-    else if (direction == "left")
-    {
-      segment.x -= 32;
+      segment.y = root.y + 0.5 *(patch_height - segment_height);
+      if (direction == "right")
+      {
+        segment.x += (root == lastSegment)? patch_width : segment_width;
+      }
+      else if (direction == "left")
+      {
+        segment.x -= segment_width;
+      }
     }
 
     this.add(segment);
