@@ -15,7 +15,10 @@ class Beaver extends FlxSprite
   var GRAVITY:Int = 800;
   var SPEED:Int = 50;
 
-  public function new(X:Float=0, Y:Float=0)
+  var _jumpAirTime:Float;
+  var _jumpDist:Float;
+
+  public function new(X:Float, Y:Float, jumpAirTime:Float, jumpDist:Float)
   {
     super(X, Y);
     makeGraphic(16, 16, FlxColor.CRIMSON);
@@ -25,6 +28,9 @@ class Beaver extends FlxSprite
 
     set_facing(FlxObject.LEFT);
     velocity.x = -SPEED;
+
+    _jumpAirTime = jumpAirTime;
+    _jumpDist = jumpDist;
   }
 
   override public function update():Void
@@ -69,13 +75,13 @@ class Beaver extends FlxSprite
       var dest = this.getMidpoint();
       if (facing == FlxObject.RIGHT)
       {
-        dest.x += 16.0;
+        dest.x += _jumpDist;
       }
       else
       {
-        dest.x -= 16.0;
+        dest.x -= _jumpDist;
       }
-      BounceMovement.BounceTo(this, dest, this.acceleration.y, 0.5);
+      BounceMovement.BounceTo(this, dest, this.acceleration.y, _jumpAirTime);
     }
   }
 

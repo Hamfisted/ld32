@@ -183,7 +183,9 @@ class PlayState extends FlxState
     }
     else if (entityName == "beaver")
     {
-      _grpBeavers.add(new Beaver(x, y));
+      _grpBeavers.add(new Beaver(x, y,
+        Std.parseFloat(entityData.get("jumpAirTime")),
+        Std.parseFloat(entityData.get("jumpDist"))));
     }
     else if (entityName == "grow_patch")
     {
@@ -194,8 +196,7 @@ class PlayState extends FlxState
       _grpBouncePads.add(new BouncePad(x, y,
         Std.parseFloat(entityData.get("dest_x")),
         Std.parseFloat(entityData.get("dest_y")),
-        Std.parseFloat(entityData.get("air_time")),
-        Std.parseFloat(entityData.get("y_overshoot"))));
+        Std.parseFloat(entityData.get("air_time"))));
     }
     else if (entityName == "decay_patch")
     {

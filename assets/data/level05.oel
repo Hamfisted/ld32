@@ -92,11 +92,11 @@
     <grow_patch id="30" x="720" y="688" direction="up" />
     <grow_patch id="31" x="752" y="688" direction="up" />
     <grow_patch id="32" x="768" y="688" direction="up" />
-    <beaver id="33" x="448" y="656" />
-    <beaver id="34" x="496" y="656" />
-    <beaver id="35" x="544" y="656" />
-    <beaver id="36" x="576" y="656" />
-    <beaver id="37" x="624" y="656" />
+    <beaver id="33" x="448" y="656" jumpAirTime="0.5" jumpDist="16" />
+    <beaver id="34" x="496" y="656" jumpAirTime="0.5" jumpDist="16" />
+    <beaver id="35" x="544" y="656" jumpAirTime="0.5" jumpDist="16" />
+    <beaver id="36" x="576" y="656" jumpAirTime="0.5" jumpDist="16" />
+    <beaver id="37" x="624" y="656" jumpAirTime="0.5" jumpDist="16" />
     <level_end id="38" x="608" y="560" />
     <player id="12" x="80" y="960" />
     <seed_pickup id="39" x="352" y="544" />

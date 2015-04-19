@@ -68,11 +68,11 @@
     <seed_pickup id="6" x="144" y="960" />
     <seed_pickup id="7" x="176" y="960" />
     <seed_pickup id="8" x="160" y="960" />
-    <beaver id="9" x="416" y="960" />
-    <beaver id="10" x="448" y="960" />
-    <beaver id="11" x="480" y="960" />
-    <beaver id="1" x="512" y="960" />
-    <beaver id="2" x="544" y="960" />
+    <beaver id="9" x="416" y="960" jumpAirTime="0.5" jumpDist="16" />
+    <beaver id="10" x="448" y="960" jumpAirTime="0.5" jumpDist="16" />
+    <beaver id="11" x="480" y="960" jumpAirTime="0.5" jumpDist="16" />
+    <beaver id="1" x="512" y="960" jumpAirTime="0.5" jumpDist="16" />
+    <beaver id="2" x="544" y="960" jumpAirTime="0.5" jumpDist="16" />
     <player id="0" x="64" y="960" />
     <grow_patch id="4" x="336" y="992" direction="up" />
     <grow_patch id="12" x="320" y="992" direction="up" />

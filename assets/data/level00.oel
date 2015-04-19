@@ -33,9 +33,9 @@
     <player id="6" x="32" y="416" />
     <level_end id="0" x="496" y="432" />
     <seed_pickup id="8" x="112" y="400" />
-    <beaver id="1" x="384" y="432" />
-    <beaver id="2" x="336" y="432" />
-    <beaver id="3" x="432" y="432" />
+    <beaver id="1" x="384" y="432" jumpAirTime="0.5" jumpDist="16" />
+    <beaver id="2" x="336" y="432" jumpAirTime="0.4" jumpDist="16" />
+    <beaver id="3" x="432" y="432" jumpAirTime="0.5" jumpDist="16" />
     <seed_pickup id="4" x="128" y="400" />
     <seed_pickup id="5" x="144" y="400" />
   </entities>

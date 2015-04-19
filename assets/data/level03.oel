@@ -81,9 +81,9 @@
     <seed_pickup id="11" x="464" y="880" />
     <seed_pickup id="15" x="448" y="880" />
     <level_end id="16" x="48" y="704" />
-    <beaver id="17" x="240" y="720" />
-    <beaver id="18" x="208" y="720" />
-    <beaver id="19" x="176" y="720" />
+    <beaver id="17" x="240" y="720" jumpAirTime="0.5" jumpDist="16" />
+    <beaver id="18" x="208" y="720" jumpAirTime="0.5" jumpDist="16" />
+    <beaver id="19" x="176" y="720" jumpAirTime="0.5" jumpDist="16" />
     <player id="20" x="192" y="944" />
   </entities>
 </level>
