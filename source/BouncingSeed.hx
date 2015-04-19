@@ -12,6 +12,7 @@ import flixel.util.FlxMath;
  */
 class BouncingSeed extends FlxSprite
 {
+  var _groundDrag:GroundDragHelper;
   var inAirLastFrame:Bool = true;
   var _target:FlxObject;
   var _updateRate:Int;
@@ -21,8 +22,9 @@ class BouncingSeed extends FlxSprite
   {
     super(X+4, Y);
     makeGraphic(8, 8, FlxColor.LIME);
-    _target = target;
 
+    _groundDrag = new GroundDragHelper(this);
+    _target = target;
     _updateRate = Std.random(200) + 600;
     _nextUpdateMilli = FlxG.game.ticks + _updateRate;
     this.acceleration.y = gravity;
@@ -30,17 +32,7 @@ class BouncingSeed extends FlxSprite
 
   override public function update():Void
   {
-    if (inAirLastFrame && isTouching(FlxObject.FLOOR))
-    {
-      drag.x = 2400;
-      inAirLastFrame = false;
-    }
-
-    if (!inAirLastFrame && !isTouching(FlxObject.FLOOR))
-    {
-      inAirLastFrame = true;
-    }
-
+    _groundDrag.update();
 
     if (_nextUpdateMilli < FlxG.game.ticks)
     {
