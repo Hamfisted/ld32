@@ -22,7 +22,7 @@ class Beaver extends FlxSprite
     setFacingFlip(FlxObject.LEFT, false, false);
     setFacingFlip(FlxObject.RIGHT, true, false);
 
-    setSize(20, 20);
+    setSize(20, 24);
     offset.set(6, 6);
 
     // define animations
