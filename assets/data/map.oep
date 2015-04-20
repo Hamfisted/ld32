@@ -16,7 +16,7 @@
     <Width>2048</Width>
     <Height>2048</Height>
   </LevelMaximumSize>
-  <Filename>C:\Users\Warmachine\Documents\GitHub\ld32\assets\data\map.oep</Filename>
+  <Filename>Y:\projects\ld32\assets\data\map.oep</Filename>
   <AngleMode>Degrees</AngleMode>
   <CameraEnabled>true</CameraEnabled>
   <CameraSize>
@@ -31,20 +31,8 @@
     <LayerDefinition xsi:type="TileLayerDefinition">
       <Name>bg2</Name>
       <Grid>
-        <Width>51</Width>
-        <Height>51</Height>
-      </Grid>
-      <ScrollFactor>
-        <X>1</X>
-        <Y>1</Y>
-      </ScrollFactor>
-      <ExportMode>CSV</ExportMode>
-    </LayerDefinition>
-    <LayerDefinition xsi:type="TileLayerDefinition">
-      <Name>bg1</Name>
-      <Grid>
-        <Width>51</Width>
-        <Height>51</Height>
+        <Width>96</Width>
+        <Height>96</Height>
       </Grid>
       <ScrollFactor>
         <X>1</X>
@@ -87,11 +75,11 @@
       <TileSep>0</TileSep>
     </Tileset>
     <Tileset>
-      <Name>bg</Name>
-      <FilePath>..\images\bg.png</FilePath>
+      <Name>bg_clouds</Name>
+      <FilePath>..\images\bg_clouds.png</FilePath>
       <TileSize>
-        <Width>51</Width>
-        <Height>51</Height>
+        <Width>96</Width>
+        <Height>96</Height>
       </TileSize>
       <TileSep>0</TileSep>
     </Tileset>
