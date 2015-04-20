@@ -12,7 +12,7 @@ class BouncePad extends FlxSprite
 
   public function new(X:Float, Y:Float, destX:Float, destY:Float, airTime:Float)
   {
-    super(X, Y);
+    super(X, Y+2);
     _destPoint = new FlxPoint(destX, destY);
     _airTime = airTime;
     immovable = true;
