@@ -59,7 +59,7 @@ class BouncingSeed extends FlxSprite
       else
       {
         _nextUpdateMilli = FlxG.game.ticks + _updateRate;
-        BounceMovement.BounceTo(this, _target.getMidpoint(), this.acceleration.y, 0.4);
+        BounceMovement.BounceTo(this, _target.getMidpoint(), this.acceleration.y, 0.5);
       }
     }
 
