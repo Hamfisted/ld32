@@ -6,6 +6,7 @@
         padding: 0;
         background-color: black;
         font-family: sans-serif;
+        color: gray;
       }
       #container {
         margin: 0 auto;
@@ -13,9 +14,8 @@
         height: 486px;
       }
       .size-buttons {
-        margin: 30px auto 0;
+        margin: 20px auto 30px;
         text-align: center;
-        color: gray;
         font-size: 14px;
       }
       .size-button {
@@ -23,6 +23,12 @@
       }
       .selected {
         font-weight: bold;
+      }
+      .controls {
+        width: 500px;
+        margin: 0 auto;
+        text-align: left;
+        font-size: 14px;
       }
     </style>
   </head>
@@ -33,6 +39,11 @@
         <param name="scale" value="default" />
         <embed src="ld32.swf" type="application/x-shockwave-flash" width="100%" height="100%" />
       </object>
+    </div>
+    <div class="controls">
+      <p>
+        WASD to move. Click to fire seeds. Right-click a tree to get your seed back!
+      </p>
     </div>
     <div class="size-buttons">
       set size:
