@@ -28,6 +28,8 @@ class Player extends FlxSprite
 
   var seedCount:Int = 0;
 
+  var _groundDrag:GroundDragHelper;
+
   // god help me
   var isShooting:Bool;
   var isPreparingJump:Bool;
@@ -65,7 +67,7 @@ class Player extends FlxSprite
     solid = true;
     collisonXDrag = false;
 
-    drag.x = 2400;
+    _groundDrag = new GroundDragHelper(this);
 
     acceleration.y = GRAVITY;
 
@@ -95,6 +97,8 @@ class Player extends FlxSprite
 
   override public function update():Void
   {
+    _groundDrag.update();
+    //FlxG.log.add('${drag.x}');
     if (alive)
     {
       if (shouldBeDead())
@@ -178,6 +182,11 @@ class Player extends FlxSprite
     {
       this.velocity.x = this.speed;
       facing = FlxObject.RIGHT;
+    }
+
+    if (_left || _right)
+    {
+      this.drag.x = 2400;
     }
 
     lastVelocity.copyFrom(velocity);
