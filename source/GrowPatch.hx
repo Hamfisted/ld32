@@ -20,6 +20,7 @@ class GrowPatch extends Patch
   var patch_height:Int = 16;
   var segment_width:Int = 18;
   var segment_height:Int = 32;
+  var isHorizontal:Bool = false;
 
   public function new(X:Float=0, Y:Float=0, Direction:String="up")
   {
@@ -32,8 +33,11 @@ class GrowPatch extends Patch
       trace("grow patch direction is invalid");
     }
 
+    _patchSprite = new PatchChildSprite(X, Y, this);
+
     if (direction == "left" || direction == "right")
     {
+      isHorizontal = true;
       // swap heights and widths
       var t:Int;
       t = patch_width;
@@ -42,10 +46,14 @@ class GrowPatch extends Patch
       t = segment_width;
       segment_width = segment_height;
       segment_height = t;
+
+      _patchSprite.loadGraphic(AssetPaths.grow_patch_dirt_horizontal__png, false, patch_width, patch_height);
     }
-    // todo: add real sprite
-    _patchSprite = new PatchChildSprite(X, Y, this);
-    _patchSprite.makeGraphic(patch_width, patch_height, FlxColor.MAROON);
+    else
+    {
+      _patchSprite.loadGraphic(AssetPaths.grow_patch_dirt__png, false, patch_width, patch_height);
+    }
+
     this.add(_patchSprite);
   }
 
