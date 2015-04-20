@@ -71,11 +71,6 @@ class DecayPatch extends Patch
 
   function decay(m:Int, n:Int):Void
   {
-    // out of bounds check
-    if (m < 0 || m >= rows || n < 0 || n >= cols)
-    {
-      return;
-    }
     var index:Int = indexOf(m, n);
     var block:PatchChildSprite = members[index];
     if (!block.alive)
@@ -105,12 +100,17 @@ class DecayPatch extends Patch
     ];
 
     // this is probably horrible
-    for (n in neighbors)
+    for (nb in neighbors)
     {
+      // out of bounds check
+      if (nb[0] < 0 || nb[0] >= rows || nb[1] < 0 || nb[1] >= cols)
+      {
+        continue;
+      }
       // make the neighbors start shaking
-      members[indexOf(n[0], n[1])].shake();
+      members[indexOf(nb[0], nb[1])].shake();
       // trigger decay on neighbors after a while
-      haxe.Timer.delay(function() { decay(n[0], n[1]); }, 300);
+      haxe.Timer.delay(function() { decay(nb[0], nb[1]); }, 300);
     }
 
   }
