@@ -104,7 +104,10 @@ class Beaver extends FlxSprite
       changeDirection();
     }
 
-    if (isTouching(FlxObject.FLOOR))
+    if (isTouching(FlxObject.FLOOR) &&
+        this.velocity.y >= 0.0)
+        // only jump if they are on the way down
+        // aka not on a bouncer
     {
       animation.play("jump");
       var dest = this.getMidpoint();
