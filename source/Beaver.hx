@@ -21,7 +21,20 @@ class Beaver extends FlxSprite
   public function new(X:Float, Y:Float, jumpAirTime:Float, jumpDist:Float)
   {
     super(X, Y);
-    makeGraphic(16, 16, FlxColor.CRIMSON);
+    loadGraphic(AssetPaths.beaver__png, true, 32, 32);
+    setFacingFlip(FlxObject.LEFT, false, false);
+    setFacingFlip(FlxObject.RIGHT, true, false);
+
+    // define animations
+    var c:Int = 4; // Num of columns in sheet
+    function frames(row:Int, length:Int):Array<Int>
+    {
+      return [for (i in (row*c)...(row*c+length)) i];
+    }
+    animation.add("walk",  frames(0, 4), 10, true);
+    animation.add("jump",  frames(1, 4), 12, false);
+    animation.add("die",   frames(2, 2), 12, false);
+
     solid = true;
 
     acceleration.y = GRAVITY;
@@ -72,6 +85,7 @@ class Beaver extends FlxSprite
 
     if (isTouching(FlxObject.FLOOR))
     {
+      animation.play("jump");
       var dest = this.getMidpoint();
       if (facing == FlxObject.RIGHT)
       {
