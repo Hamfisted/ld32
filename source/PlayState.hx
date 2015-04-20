@@ -96,6 +96,7 @@ class PlayState extends FlxState
     FlxG.collide(_grpBouncePads, _player, CollisionLogic.BounceObject);
     FlxG.collide(_grpBouncePads, _grpBeavers, CollisionLogic.BounceObject);
     FlxG.collide(_grpBouncePads, _player.seedTrail);
+    FlxG.collide(_grpBouncePads, _grpSeedPickups);
 
     // Patches
     FlxG.collide(_player, _grpPatches);
