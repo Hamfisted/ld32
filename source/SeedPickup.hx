@@ -12,8 +12,8 @@ class SeedPickup extends FlxSprite
 
   public function new(X:Float=0, Y:Float=0)
   {
-    super(X+4, Y);
-    makeGraphic(8, 8, FlxColor.LIME);
+    super(X+2, Y);
+    loadGraphic(AssetPaths.seed__png, false);
     this.acceleration.y = Reg.GRAVITY;
 
     _nextJumpMilli = FlxG.game.ticks + Std.random(1000);

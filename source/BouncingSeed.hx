@@ -21,8 +21,8 @@ class BouncingSeed extends FlxSprite
 
   public function new(X:Float=0, Y:Float=0, target:FlxObject, gravity:Int)
   {
-    super(X+4, Y);
-    makeGraphic(8, 8, FlxColor.LIME);
+    super(X, Y);
+    loadGraphic(AssetPaths.seed__png, false);
 
     _groundDrag = new GroundDragHelper(this);
     _target = target;

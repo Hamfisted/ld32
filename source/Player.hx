@@ -71,7 +71,7 @@ class Player extends FlxSprite
 
     // Just makes 20 bullets for now
     seedShooter = new FlxWeapon("seed_shooter", this, SeedBullet);
-    seedShooter.makePixelBullet(20, 4, 4, FlxColor.LIME);
+    seedShooter.makeImageBullet(20, AssetPaths.seed_bullet__png, 0, 0, true);
     seedShooter.setBulletSpeed(SeedBullet.SPEED);
     seedShooter.setFireRate(200);
     seedShooter.setBulletOffset(12, 8);
