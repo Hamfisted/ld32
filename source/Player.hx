@@ -249,6 +249,7 @@ class Player extends FlxSprite
   public function jumpUp():Void
   {
     this.velocity.y = JUMP_SPEED;
+    animation.play("jump");
     isJumping = true;
     isPreparingJump = false;
   }

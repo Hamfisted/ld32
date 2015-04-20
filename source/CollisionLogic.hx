@@ -14,6 +14,10 @@ class CollisionLogic
 {
   public static function PlayerBeaver(player:Player, beaver:Beaver)
   {
+    if (!beaver.alive)
+    {
+      return;
+    }
     if (beaver.isTouching(FlxObject.UP))
     {
       beaver.kill();
@@ -46,6 +50,10 @@ class CollisionLogic
 
   public static function BulletBeaver(bullet:SeedBullet, beaver:Beaver)
   {
+    if (!beaver.alive)
+    {
+      return;
+    }
     if (bullet.exists && !bullet.isReturning)
     {
       beaver.kill();

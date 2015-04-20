@@ -26,7 +26,7 @@ class Beaver extends FlxSprite
     setFacingFlip(FlxObject.RIGHT, true, false);
 
     setSize(16, 16);
-    offset.set(8, 16);
+    offset.set(8, 15);
 
     // define animations
     var c:Int = 4; // Num of columns in sheet
@@ -36,7 +36,7 @@ class Beaver extends FlxSprite
     }
     animation.add("walk",  frames(0, 4), 10, true);
     animation.add("jump",  frames(1, 4), 12, false);
-    animation.add("die",   frames(2, 2), 12, false);
+    animation.add("die",   frames(2, 2), 8, false);
 
     solid = true;
 
@@ -51,8 +51,28 @@ class Beaver extends FlxSprite
 
   override public function update():Void
   {
-    movement();
+    if (alive)
+    {
+      movement();
+    }
+    else
+    {
+      if (isTouching(FlxObject.FLOOR))
+      {
+        velocity.x = 0;
+      }
+    }
     super.update();
+  }
+
+  override public function kill():Void
+  {
+    alive = false;
+    animation.play("die");
+    allowCollisions = FlxObject.FLOOR;
+    haxe.Timer.delay(function() {
+      exists = false;
+    }, 1400);
   }
 
   public function changeDirection()

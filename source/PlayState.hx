@@ -159,9 +159,9 @@ class PlayState extends FlxState
     add(_grpSpikes);
     add(_grpSeedPickups);
     add(_levelEnd);
+    add(_grpBeavers);
     add(_player.seedTrail);
     add(_player);
-    add(_grpBeavers);
     add(_grpPatches);
     add(_grpBullets);
     add(_grpBouncePads);
