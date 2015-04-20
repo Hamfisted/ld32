@@ -4,12 +4,16 @@ import flixel.FlxG;
 import flixel.FlxCamera;
 import flixel.FlxState;
 import flixel.FlxObject;
+import flixel.FlxSprite;
+import flixel.util.FlxColor;
 import flixel.util.FlxDestroyUtil;
 import flixel.group.FlxTypedGroup;
 import flixel.tile.FlxTilemap;
 import flixel.addons.editors.ogmo.FlxOgmoLoader;
 import flixel.system.debug.LogStyle;
 import flixel.addons.weapon.FlxBullet;
+
+using flixel.util.FlxSpriteUtil;
 
 /**
  * A FlxState which can be used for the actual gameplay.
@@ -56,6 +60,19 @@ class PlayState extends FlxState
 
     _hud = new HUD();
     add(_hud);
+
+    // Make cursor sprite
+    var cursorSprite = new FlxSprite();
+    var cursorSize:Int = 18;
+    var cursorMid:Int = Math.floor(cursorSize / 2);
+    var cursorThickness:Int = 2;
+    var cursorColor:Int = FlxColor.WHITE;
+    cursorSprite.makeGraphic(cursorSize, cursorSize, FlxColor.TRANSPARENT);
+    cursorSprite.drawCircle(-1, -1, 6, FlxColor.TRANSPARENT, {thickness: cursorThickness, color: cursorColor}, null);
+    cursorSprite.drawLine(cursorMid, 0, cursorMid, cursorSize, {thickness: cursorThickness, color: cursorColor});
+    cursorSprite.drawLine(0, cursorMid, cursorSize, cursorMid, {thickness: cursorThickness, color: cursorColor});
+    FlxG.mouse.load(cursorSprite.pixels);
+
 
     super.create();
   }
