@@ -12,9 +12,12 @@ class LevelEnd extends FlxSprite
   {
     super(X, Y);
 
-    makeGraphic(16, 16, FlxColor.YELLOW);
     solid = true;
     immovable = true;
+
+    loadGraphic(AssetPaths.warp_portal__png, false, 32, 32);
+    setSize(16, 24);
+    offset.set(8, 8);
   }
 
   override public function update():Void

@@ -117,6 +117,6 @@
     <beaver id="2" x="544" y="960" jumpAirTime="0.5" jumpDist="16" />
     <player id="0" x="64" y="960" />
     <grow_patch id="12" x="304" y="992" direction="up" />
-    <level_end id="14" x="672" y="960" />
+    <level_end id="14" x="656" y="960" />
   </entities>
 </level>
