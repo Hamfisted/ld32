@@ -2,18 +2,27 @@
   <head>
     <style type="text/css">
       html, body {
-        height: 100%;
-        overflow: hidden;
         margin: 0;
         padding: 0;
         background-color: black;
+        font-family: sans-serif;
       }
       #container {
-        min-width: 864px;
-        min-height: 486px;
-        max-width: 1296px;
-        max-height: 729px;
         margin: 0 auto;
+        width: 864px;
+        height: 486px;
+      }
+      .size-buttons {
+        margin: 30px auto 0;
+        text-align: center;
+        color: gray;
+        font-size: 14px;
+      }
+      .size-button {
+        color: inherit;
+      }
+      .selected {
+        font-weight: bold;
       }
     </style>
   </head>
@@ -25,6 +34,50 @@
         <embed src="ld32.swf" type="application/x-shockwave-flash" width="100%" height="100%" />
       </object>
     </div>
+    <div class="size-buttons">
+      set size:
+      <a id="button-50" class="size-button" href="javascript:">50%</a>
+      -
+      <a id="button-100" class="size-button selected" href="javascript:">100%</a>
+      -
+      <a id="button-150" class="size-button" href="javascript:">150%</a>
+    </div>
+    <script type="text/javascript">
+      /**
+       * I don't usually write terrible javascript like this.
+       * But Ludum Dare calls for desperate measures.
+       */
+      var container = document.getElementById("container");
+      var button50 = document.getElementById("button-50");
+      var button100 = document.getElementById("button-100");
+      var button150 = document.getElementById("button-150");
+      var buttons = [button50, button100, button150];
+      function deselectAll() {
+        buttons.forEach(function (button) {
+          button.classList.remove("selected");
+        });
+      }
+      button50.onclick = function (e) {
+        deselectAll();
+        container.style.width = 432;
+        container.style.height = 243;
+        this.classList.add("selected");
+      };
+      button100.onclick = function (e) {
+        deselectAll();
+        container.style.width = 864;
+        container.style.height = 486;
+        this.classList.add("selected");
+      };
+      button150.onclick = function (e) {
+        deselectAll();
+        container.style.width = 1296;
+        container.style.height = 729;
+        this.classList.add("selected");
+      };
+
+      button100.onclick();
+    </script>
   </body>
 
 </html>
