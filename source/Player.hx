@@ -111,6 +111,10 @@ class Player extends FlxSprite
 
   override public function kill():Void
   {
+    if (!alive) // fixes weird stuff
+    {
+      return;
+    }
     this.alive = false;
     animation.play("die");
     haxe.Timer.delay(function() {
