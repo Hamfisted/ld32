@@ -74,7 +74,7 @@ class Player extends FlxSprite
     seedShooter.makeImageBullet(20, AssetPaths.seed_bullet__png, 0, 0, true);
     seedShooter.setBulletSpeed(SeedBullet.SPEED);
     seedShooter.setFireRate(200);
-    seedShooter.setBulletOffset(12, 8);
+    seedShooter.setBulletOffset(12, 6);
     seedShooter.setBulletBounds(new FlxRect(0, 0, 2400, 2400));
     seedShooter.setBulletLifeSpan(10);
 
@@ -192,6 +192,10 @@ class Player extends FlxSprite
       haxe.Timer.delay(function() {
         if (seedShooter.fireAtMouse()) {
           useSeed();
+          // adjust bullet hitbox from 6x6 to 2x2
+          var bullet:FlxBullet = seedShooter.currentBullet;
+          bullet.setSize(2, 2);
+          bullet.offset.set(2, 2);
         }
       }, 250);
     }
