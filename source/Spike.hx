@@ -12,7 +12,7 @@ class Spike extends FlxSprite
   {
     super(X, Y);
 
-    makeGraphic(16, 16, FlxColor.CORAL);
+    loadGraphic(AssetPaths.lava__png, false, 16, 16);
     solid = true;
     immovable = true;
   }
