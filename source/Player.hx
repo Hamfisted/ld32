@@ -32,7 +32,7 @@ class Player extends FlxSprite
   var isShooting:Bool;
   var isPreparingJump:Bool;
   var isJumping:Bool;
-  var isWinning:Bool;
+  public var isWinning:Bool;
 
   public function new(X:Float=0, Y:Float=0)
   {

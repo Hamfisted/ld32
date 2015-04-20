@@ -113,6 +113,10 @@ class PlayState extends FlxState
 
   public function winLevel(?P:Player, ?W:LevelEnd):Void
   {
+    if (P.isWinning)
+    {
+      return;
+    }
     P.win();
     haxe.Timer.delay(function() {
       Reg.level++;
