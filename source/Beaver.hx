@@ -5,11 +5,8 @@ import flixel.FlxSprite;
 import flixel.tile.FlxTilemap;
 import flixel.util.FlxColor;
 import flixel.util.FlxPoint;
+import flixel.tweens.FlxTween;
 
-/**
- * ...
- * @author ...
- */
 class Beaver extends FlxSprite
 {
   var GRAVITY:Int = 800;
@@ -70,9 +67,10 @@ class Beaver extends FlxSprite
     alive = false;
     animation.play("die");
     allowCollisions = FlxObject.FLOOR;
-    haxe.Timer.delay(function() {
+    function completeDeath(tween: FlxTween):Void {
       exists = false;
-    }, 1400);
+    }
+    FlxTween.tween(this, {alpha: 0}, 0.3, {complete: completeDeath, startDelay: 0.7});
   }
 
   public function changeDirection()
