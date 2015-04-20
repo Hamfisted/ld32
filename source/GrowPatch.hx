@@ -135,10 +135,16 @@ class GrowPatch extends Patch
 
     // remove the last segment
     var segment = this.members[this.members.length-1];
+    // Fixme
+    // Drop a seedpickup in the segment's place
+    var seed:SeedPickup = new SeedPickup(segment.x, segment.y);
+    seed.acceleration.y = Reg.GRAVITY;
+
     remove(segment, true);
     segment.kill();
     segment.destroy();
-    Reg.player.giveSeeds(1);
+
+    Reg.grpSeedPickups.add(seed);
   }
 
 }

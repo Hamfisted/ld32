@@ -40,6 +40,8 @@ class PlayState extends FlxState
 
     _grpSpikes = new FlxTypedGroup<Spike>();
     _grpSeedPickups = new FlxTypedGroup<SeedPickup>();
+    // Fixme
+    Reg.grpSeedPickups = _grpSeedPickups;
     _levelEnd = new LevelEnd();
     _player = new Player();
     // Fixme
@@ -81,6 +83,7 @@ class PlayState extends FlxState
     FlxG.collide(_mWalls, _player.seedTrail);
     FlxG.collide(_mWalls, _grpBullets, CollisionLogic.WallBullet);
     FlxG.collide(_mWalls, _grpBeavers);
+    FlxG.collide(_mWalls, _grpSeedPickups);
 
     FlxG.collide(_player, _grpSpikes, CollisionLogic.PlayerSpike);
     FlxG.overlap(_player, _grpSeedPickups, CollisionLogic.PlayerSeed);
@@ -99,6 +102,7 @@ class PlayState extends FlxState
     FlxG.collide(_grpBeavers, _grpPatches);
     FlxG.overlap(_grpBullets, _grpPatches, CollisionLogic.BulletPatch);
     FlxG.collide(_grpPatches, _player.seedTrail);
+    FlxG.collide(_grpPatches, _grpSeedPickups);
 
     _hud.updateHUD(_player);
 

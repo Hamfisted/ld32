@@ -1,6 +1,7 @@
 package;
 
 import flixel.util.FlxSave;
+import flixel.group.FlxTypedGroup;
 
 /**
  * Handy, pre-built Registry class that can be used to store
@@ -11,6 +12,8 @@ class Reg
 {
   // Time is ticking. Fixme later
   public static var player:Player;
+  public static var grpSeedPickups:FlxTypedGroup<SeedPickup>;
+  public static var GRAVITY:Int = 800;
   /**
    * Generic levels Array that can be used for cross-state stuff.
    * Example usage: Storing the levels of a platformer.
