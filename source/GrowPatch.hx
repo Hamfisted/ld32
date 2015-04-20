@@ -87,8 +87,22 @@ class GrowPatch extends Patch
   function makeTreeSegment():PatchChildSprite
   {
     var segment = new PatchChildSprite(x, y, this);
-    segment.makeGraphic(segment_width, segment_height, FlxColor.BROWN);
-    // segment.updateHitbox();
+    // our sprite extends down by 5px to look better
+    if (isHorizontal)
+    {
+      segment.loadGraphic(AssetPaths.grow_patch_tree_extended_horizontal__png, true, segment_width + 5, segment_height);
+      segment.setSize(segment_width, segment_height);
+      if (direction == "right")
+      {
+        segment.offset.set(5, 0);
+      }
+    }
+    else
+    {
+      segment.loadGraphic(AssetPaths.grow_patch_tree_extended__png, true, segment_width, segment_height + 5);
+      segment.setSize(segment_width, segment_height);
+    }
+    segment.animation.add("grow", [0, 1, 2, 3, 4, 5, 6, 7], 14, false);
     return segment;
   }
 
@@ -114,8 +128,8 @@ class GrowPatch extends Patch
       }
       else if (direction == "down")
       {
-        segment.flipX = true;
         segment.y += (root == lastSegment)? patch_height : segment_height;
+        segment.flipY = true;
       }
     }
     else
@@ -124,6 +138,7 @@ class GrowPatch extends Patch
       if (direction == "right")
       {
         segment.x += (root == lastSegment)? patch_width : segment_width;
+        segment.flipX = true;
       }
       else if (direction == "left")
       {
@@ -132,6 +147,8 @@ class GrowPatch extends Patch
     }
 
     this.add(segment);
+
+    segment.animation.play("grow");
   }
 
   function shrink():Void
