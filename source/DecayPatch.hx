@@ -44,7 +44,7 @@ class DecayPatch extends Patch
   function makeDecaySprite(X:Float, Y:Float):PatchChildSprite
   {
     var decaySprite = new PatchChildSprite(X, Y, this);
-    decaySprite.makeGraphic(16, 16, FlxColor.GRAY);
+    decaySprite.loadGraphic(AssetPaths.stone16__png, false, 16, 16);
     return decaySprite;
   }
 
