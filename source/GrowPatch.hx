@@ -7,6 +7,8 @@ import flixel.group.FlxSpriteGroup;
 import flixel.util.FlxPoint;
 import flixel.util.FlxColor;
 import flixel.addons.weapon.FlxBullet;
+import flixel.plugin.MouseEventManager;
+import flixel.util.FlxPoint;
 
 class GrowPatch extends Patch
 {
@@ -50,6 +52,23 @@ class GrowPatch extends Patch
   override public function update():Void
   {
     super.update();
+    // Test if any children were right-clicked
+    // If so, call shrink();
+    if (FlxG.mouse.justPressedRight)
+    {
+      var mPos:FlxPoint = FlxG.mouse.getWorldPosition();
+      var rightClicked:Bool = false;
+      this.forEach(function(child:PatchChildSprite):Void {
+        if (child.pixelsOverlapPoint(mPos))
+        {
+          rightClicked = true;
+        }
+      });
+      if (rightClicked)
+      {
+        shrink();
+      }
+    }
   }
 
   override public function touchSeed(seed:FlxBullet, child:PatchChildSprite):Void
@@ -67,13 +86,13 @@ class GrowPatch extends Patch
 
   function activated():Bool
   {
-    return this.length > 1;
+    return this.members.length > 1;
   }
 
   function grow():Void
   {
     var root:PatchChildSprite = _patchSprite;
-    var lastSegment:PatchChildSprite = this.members[this.length-1];
+    var lastSegment:PatchChildSprite = this.members[this.members.length-1];
     var segment:PatchChildSprite = makeTreeSegment();
     segment.x = lastSegment.x;
     segment.y = lastSegment.y;
@@ -105,6 +124,21 @@ class GrowPatch extends Patch
     }
 
     this.add(segment);
+  }
+
+  function shrink():Void
+  {
+    if (!activated())
+    {
+      return;
+    }
+
+    // remove the last segment
+    var segment = this.members[this.members.length-1];
+    remove(segment, true);
+    segment.kill();
+    segment.destroy();
+    Reg.player.giveSeeds(1);
   }
 
 }
