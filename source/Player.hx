@@ -248,7 +248,14 @@ class Player extends FlxSprite
 
   public function jumpUp():Void
   {
+    if (!alive)
+    {
+      return;
+    }
     this.velocity.y = JUMP_SPEED;
+    //   Play jump anim, even though it's supposed to start playing before
+    // jumpUp is called, in case jumpUp is called externally. Like from
+    // CollisionLogic.PlayerBeaver
     animation.play("jump");
     isJumping = true;
     isPreparingJump = false;
@@ -256,6 +263,10 @@ class Player extends FlxSprite
 
   public function win():Void
   {
+    if (!alive)
+    {
+      return;
+    }
     isWinning = true;
     animation.play("win");
   }
