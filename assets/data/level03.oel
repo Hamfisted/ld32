@@ -79,9 +79,6 @@
     <seed_pickup id="3" x="112" y="976" />
     <seed_pickup id="4" x="128" y="976" />
     <seed_pickup id="9" x="496" y="880" />
-    <seed_pickup id="10" x="480" y="880" />
-    <seed_pickup id="11" x="464" y="880" />
-    <seed_pickup id="15" x="448" y="880" />
     <level_end id="16" x="48" y="704" />
     <beaver id="17" x="240" y="720" jumpAirTime="0.5" jumpDist="16" />
     <beaver id="18" x="208" y="720" jumpAirTime="0.5" jumpDist="16" />
@@ -90,5 +87,9 @@
     <grow_patch id="0" x="256" y="992" direction="up" />
     <grow_patch id="1" x="368" y="896" direction="up" />
     <grow_patch id="5" x="336" y="896" direction="up" />
+    <seed_pickup id="6" x="480" y="880" />
+    <seed_pickup id="7" x="448" y="880" />
+    <seed_pickup id="8" x="464" y="880" />
+    <seed_pickup id="10" x="-48" y="880" />
   </entities>
 </level>
