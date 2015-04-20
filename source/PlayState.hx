@@ -106,15 +106,18 @@ class PlayState extends FlxState
 
     _hud.updateHUD(_player);
 
-    if (!_player.alive || FlxG.keys.anyPressed(["R"])) {
+    if (!_player.exists || FlxG.keys.anyPressed(["R"])) {
       loadLevel(Reg.level);
     }
   }
 
   public function winLevel(?P:Player, ?W:LevelEnd):Void
   {
-    Reg.level++;
-    loadLevel(Reg.level);
+    P.win();
+    haxe.Timer.delay(function() {
+      Reg.level++;
+      loadLevel(Reg.level);
+    }, 1500);
   }
 
   public function loadLevel(i:Int):Void

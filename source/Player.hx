@@ -28,7 +28,11 @@ class Player extends FlxSprite
 
   var seedCount:Int = 0;
 
-  var isShooting:Bool = false;
+  // god help me
+  var isShooting:Bool;
+  var isPreparingJump:Bool;
+  var isJumping:Bool;
+  var isWinning:Bool;
 
   public function new(X:Float=0, Y:Float=0)
   {
@@ -47,14 +51,16 @@ class Player extends FlxSprite
 
     // define animations
     var c:Int = 8; // Num of columns in sheet
-    function frames(row:Int, length:Int):Array<Int>
+    function frames(row:Int, start:Int, end:Int):Array<Int>
     {
-      return [for (i in (row*c)...(row*c+length)) i];
+      return [for (i in (row*c + start)...(row*c + end + 1)) i];
     }
-    animation.add("walk",  frames(0, 8), 10, true);
-    animation.add("jump",  frames(1, 6), 12, true);
-    animation.add("die",   frames(2, 8), 12, true);
-    animation.add("shoot", frames(3, 6), 16, false);
+    animation.add("walk",  frames(0, 1, 7), 10, true);
+    animation.add("jump",  frames(1, 1, 5), 8, false);
+    animation.add("die",   frames(2, 1, 7), 12, false);
+    animation.add("shoot", frames(3, 1, 5), 16, false);
+    animation.add("idle",  frames(4, 0, 3), 8, true);
+    animation.add("win",   frames(5, 0, 3), 8, true);
 
     solid = true;
     collisonXDrag = false;
@@ -89,16 +95,15 @@ class Player extends FlxSprite
 
   override public function update():Void
   {
-    movement();
     if (alive)
     {
       if (shouldBeDead())
       {
         kill();
       }
-      else
+      else if (!isWinning)
       {
-        Reg.score += 1;
+        movement();
       }
     }
     super.update();
@@ -107,6 +112,10 @@ class Player extends FlxSprite
   override public function kill():Void
   {
     this.alive = false;
+    animation.play("die");
+    haxe.Timer.delay(function() {
+      exists = false;
+    }, 1500);
   }
 
   override public function reset(X:Float, Y:Float):Void
@@ -115,6 +124,9 @@ class Player extends FlxSprite
     velocity.set(0, 0);
     seedCount = 0;
     isShooting = false;
+    isPreparingJump = false;
+    isJumping = false;
+    isWinning = false;
     lastVelocity.copyFrom(velocity);
     seedShooter.group.callAll("kill");
 
@@ -137,9 +149,20 @@ class Player extends FlxSprite
     var _pressed:Bool = FlxG.mouse.justPressed;
 
 
-    if (_up && isTouching(FlxObject.FLOOR))
+    if (isTouching(FlxObject.FLOOR))
     {
-      jumpUp();
+      if (justTouched(FlxObject.FLOOR))
+      {
+        isPreparingJump = false;
+        isJumping = false;
+      }
+
+      if (_up && !isPreparingJump)
+      {
+        isPreparingJump = true;
+        animation.play("jump");
+        haxe.Timer.delay(jumpUp, 50);
+      }
     }
 
     if (_left)
@@ -169,11 +192,20 @@ class Player extends FlxSprite
       }, 250);
     }
 
+    // Order matters -- animation priorities.
     if (isShooting) {
       if (animation.finished)
       {
         isShooting = false;
       }
+    }
+    else if (isJumping)
+    {
+      // just chill
+    }
+    else if (isPreparingJump)
+    {
+      // just chill
     }
     else if (_left || _right)
     {
@@ -181,10 +213,7 @@ class Player extends FlxSprite
     }
     else
     {
-      // Standing still, so pause at first frame of "walk" animation
-      animation.play("walk");
-      animation.frameIndex = 0;
-      animation.pause();
+      animation.play("idle");
     }
   }
 
@@ -220,5 +249,13 @@ class Player extends FlxSprite
   public function jumpUp():Void
   {
     this.velocity.y = JUMP_SPEED;
+    isJumping = true;
+    isPreparingJump = false;
+  }
+
+  public function win():Void
+  {
+    isWinning = true;
+    animation.play("win");
   }
 }
