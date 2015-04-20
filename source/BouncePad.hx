@@ -5,10 +5,6 @@ import flixel.FlxObject;
 import flixel.FlxSprite;
 import flixel.util.FlxPoint;
 
-/**
- * ...
- * @author
- */
 class BouncePad extends FlxSprite
 {
   var _destPoint:FlxPoint;
@@ -20,11 +16,23 @@ class BouncePad extends FlxSprite
     _destPoint = new FlxPoint(destX, destY);
     _airTime = airTime;
     immovable = true;
+
+    loadGraphic(AssetPaths.mushroom_sprite__png, true, 32, 16);
+    setSize(32, 14);
+    offset.set(0, 2);
+
+    animation.add("bounce", [1, 2, 3, 0], 8, false);
+  }
+
+  override public function update():Void
+  {
+    super.update();
   }
 
   public function bounceObject(obj:FlxObject)
   {
     BounceMovement.BounceTo(obj, _destPoint, obj.acceleration.y, _airTime);
+    animation.play("bounce", true);
   }
 
 }

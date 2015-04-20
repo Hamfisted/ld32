@@ -16,7 +16,7 @@
     <Width>2048</Width>
     <Height>2048</Height>
   </LevelMaximumSize>
-  <Filename>C:\Users\Warmachine\Documents\GitHub\ld32\assets\data\map.oep</Filename>
+  <Filename>Y:\projects\ld32\assets\data\map.oep</Filename>
   <AngleMode>Degrees</AngleMode>
   <CameraEnabled>true</CameraEnabled>
   <CameraSize>
@@ -194,7 +194,7 @@
     </EntityDefinition>
     <EntityDefinition Name="bounce_pad" Limit="-1" ResizableX="false" ResizableY="false" Rotatable="false" RotateIncrement="15">
       <Size>
-        <Width>16</Width>
+        <Width>32</Width>
         <Height>16</Height>
       </Size>
       <Origin>
@@ -202,7 +202,7 @@
         <Y>0</Y>
       </Origin>
       <ImageDefinition DrawMode="Rectangle" ImagePath="" Tiled="false">
-        <RectColor A="255" R="255" G="0" B="0" />
+        <RectColor A="255" R="128" G="0" B="128" />
       </ImageDefinition>
       <ValueDefinitions>
         <ValueDefinition xsi:type="FloatValueDefinition" Name="dest_x" Default="0" Min="0" Max="2048" Round="0.1" />
