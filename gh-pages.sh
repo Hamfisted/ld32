@@ -7,7 +7,8 @@ cd $SCRIPT_DIR
 
 git rebase master
 
-lime build flash
+lime build flash -debug
+# lime build flash
 # lime build html5
 
 cp -r Export/flash/bin/* ./demo/flash/
