@@ -7,6 +7,9 @@ import flixel.group.FlxSpriteGroup;
 import flixel.util.FlxPoint;
 import flixel.util.FlxColor;
 import flixel.addons.weapon.FlxBullet;
+import flixel.tweens.FlxTween;
+import flixel.tweens.FlxEase;
+import flixel.util.FlxRandom;
 
 class DecayPatch extends Patch
 {
@@ -14,6 +17,7 @@ class DecayPatch extends Patch
   var height:Int;
   var rows:Int;
   var cols:Int;
+  var startedDecaying:Bool = false;
 
   public function new(X:Float=0, Y:Float=0, W:Int=16, H:Int=16)
   {
@@ -79,7 +83,15 @@ class DecayPatch extends Patch
       return;
     }
 
-    block.kill();
+    if (!startedDecaying)
+    {
+      startedDecaying = true;
+    }
+
+    // block.kill();
+    block.alive = false;
+    // blockDecayFX(block);
+    haxe.Timer.delay(function() { blockDecayFX(block); }, Math.floor(FlxRandom.float()*50));
 
     var neighbors:Array<Array<Int>> = [
       [m, n+1],
@@ -95,9 +107,33 @@ class DecayPatch extends Patch
     // this is probably horrible
     for (n in neighbors)
     {
+      // make the neighbors start shaking
+      members[indexOf(n[0], n[1])].shake();
+      // trigger decay on neighbors after a while
       haxe.Timer.delay(function() { decay(n[0], n[1]); }, 300);
     }
 
+  }
+
+  function blockDecayFX(block:PatchChildSprite):Void
+  {
+    var fadeTween:FlxTween;
+
+    function completeTween(tween: FlxTween):Void {
+      block.kill();
+    }
+    // fadeout
+    fadeTween = FlxTween.tween(block, {alpha: 0}, 0.3, {complete: completeTween, startDelay: 0.3, ease: FlxEase.quadIn});
+
+    // stop shaking after a while
+    haxe.Timer.delay(function() {
+      block.shakeTween.cancel();
+    }, 100);
+
+    // fall
+    block.velocity.x = FlxRandom.floatRanged(-80, 80);
+    block.acceleration.y = Reg.GRAVITY;
+    block.solid = false;
   }
 
 }
