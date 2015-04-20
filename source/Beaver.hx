@@ -25,6 +25,9 @@ class Beaver extends FlxSprite
     setFacingFlip(FlxObject.LEFT, false, false);
     setFacingFlip(FlxObject.RIGHT, true, false);
 
+    setSize(16, 16);
+    offset.set(8, 16);
+
     // define animations
     var c:Int = 4; // Num of columns in sheet
     function frames(row:Int, length:Int):Array<Int>
