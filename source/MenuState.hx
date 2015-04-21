@@ -16,15 +16,22 @@ using flixel.util.FlxSpriteUtil;
 class MenuState extends FlxState
 {
   private var _btnPlay:FlxButton;
+  var _title:FlxSprite;
 
   /**
    * Function that is called up when to state is created to set it up.
    */
   override public function create():Void
   {
+    _title = new FlxSprite();
+    _title.loadGraphic(AssetPaths.sir_sprout_title__png, false, 432, 243);
+    add(_title);
+
     _btnPlay = new FlxButton(0, 0, "Play", clickPlay);
     _btnPlay.screenCenter();
+    _btnPlay.y = 200;
     add(_btnPlay);
+
     super.create();
   }
 
@@ -36,6 +43,7 @@ class MenuState extends FlxState
   {
     super.destroy();
     _btnPlay = FlxDestroyUtil.destroy(_btnPlay);
+    _title = FlxDestroyUtil.destroy(_title);
   }
 
   /**
