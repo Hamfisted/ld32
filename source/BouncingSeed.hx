@@ -42,15 +42,13 @@ class BouncingSeed extends FlxSprite
       var distanceToTarget = FlxMath.getDistance(this.getMidpoint(), targetPos);
 
       this.drag.x = 0;
-      if (_warpingToPlayer || distanceToTarget > 128.0)
+      if (!_warpingToPlayer && distanceToTarget > 128.0)
       {
-        FlxVelocity.moveTowardsPoint(this, _target.getMidpoint(), 10);
         this.allowCollisions = FlxObject.NONE;
+        _warpingToPlayer = true;
       }
-      if (distanceToTarget < 32.0)
+      else if (distanceToTarget < 32.0)
       {
-        _warpingToPlayer = false;
-        this.allowCollisions = FlxObject.ANY;
         _nextUpdateMilli = FlxG.game.ticks + 500;
         BounceMovement.BounceTo(this, _target.getMidpoint(), this.acceleration.y, 0.2);
       }
@@ -61,6 +59,15 @@ class BouncingSeed extends FlxSprite
       }
     }
 
+    if (_warpingToPlayer)
+    {
+      var distanceToTarget = FlxMath.getDistance(this.getMidpoint(), _target.getMidpoint());
+      if (distanceToTarget < 16.0)
+      {
+        _warpingToPlayer = false;
+        this.allowCollisions = FlxObject.ANY;
+      }
+    }
     super.update();
   }
 }
