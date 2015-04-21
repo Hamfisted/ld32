@@ -83,7 +83,7 @@
     <seed_pickup id="7" x="544" y="784" />
     <beaver id="2" x="160" y="960" jumpAirTime="0.5" jumpDist="16" />
     <grow_patch_horizontal id="9" x="288" y="720" direction="right" />
-    <level_end id="10" x="208" y="672" />
+    <level_end id="10" x="224" y="672" />
     <player id="5" x="48" y="928" />
   </entities>
 </level>
