@@ -3,6 +3,7 @@ package;
 import flixel.FlxSprite;
 import flixel.util.FlxRandom;
 import flixel.tweens.FlxTween;
+import flixel.util.FlxDestroyUtil;
 
 class PatchChildSprite extends FlxSprite
 {
@@ -21,6 +22,16 @@ class PatchChildSprite extends FlxSprite
   override public function update():Void
   {
     super.update();
+  }
+
+  override public function destroy():Void
+  {
+    super.destroy();
+    if (shakeTween != null)
+    {
+      shakeTween.cancel();
+    }
+    FlxDestroyUtil.destroy(shakeTween);
   }
 
   // only used for decay sprite. fixme later
