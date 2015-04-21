@@ -44,7 +44,7 @@ class Player extends FlxSprite
 
     lastVelocity = new FlxPoint(0, 0);
 
-    loadGraphic(AssetPaths.sapling__png, true, 32, 32);
+    loadGraphic(AssetPaths.sapling_brighter__png, true, 32, 32);
     setFacingFlip(FlxObject.RIGHT, false, false);
     setFacingFlip(FlxObject.LEFT, true, false);
 
