@@ -115,7 +115,7 @@ class Player extends FlxSprite
 
   override public function kill():Void
   {
-    if (!alive) // fixes weird stuff
+    if (!alive || isWinning) // fixes weird stuff
     {
       return;
     }
