@@ -12,6 +12,7 @@ import flixel.tile.FlxTilemap;
 import flixel.addons.editors.ogmo.FlxOgmoLoader;
 import flixel.system.debug.LogStyle;
 import flixel.addons.weapon.FlxBullet;
+import flixel.text.FlxText;
 
 using flixel.util.FlxSpriteUtil;
 
@@ -189,6 +190,18 @@ class PlayState extends FlxState
     add(_grpBouncePads);
 
     FlxG.camera.follow(_player, FlxCamera.STYLE_PLATFORMER);
+
+
+    // oh god 15 minutes left
+    if (i == 12)
+    {
+      var gameover:FlxText = new FlxText(0, 0, 0, "Game Over!", 14);
+      gameover.setBorderStyle(FlxText.BORDER_SHADOW, FlxColor.GRAY, 1, 1);
+      gameover.alignment = "center";
+      gameover.x = _player.x - 38;
+      gameover.y = _player.y + 60;
+      add(gameover);
+    }
   }
 
   private function cleanupStage():Void
